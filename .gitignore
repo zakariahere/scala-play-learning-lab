@@ -1,0 +1,19 @@
+target/
+project/target/
+project/project/
+.bsp/
+.idea/
+.metals/
+
+# Local environment and credentials
+.env
+.env.*
+!.env.example
+.credentials
+*.credentials
+*.jks
+*.p12
+.bloop/
+.vscode/
+*.log
+.DS_Store
