@@ -7,7 +7,7 @@
 
 A hands-on learning journey through Scala, sbt and eventually Play. Small insurance-policy examples connect familiar Java concepts to Scala's expressions, data modelling and optional values.
 
-**Current stage:** Scala foundations. Play and Akka are future topics, not installed dependencies. All policy data and pricing rules are fictional.
+**Current stage:** Scala foundations. Play 3 and Apache Pekko are future topics, not installed dependencies. All policy data and pricing rules are fictional.
 
 ## Run the lab
 
@@ -16,12 +16,12 @@ Install a JDK and [sbt](https://www.scala-sbt.org/1.x/docs/Setup.html), then:
 ```sh
 git clone https://github.com/zakariahere/scala-play-learning-lab.git
 cd scala-play-learning-lab
-sbt run
+sbt "runMain learning.PremiumLesson"
 ```
 
 The project pins Scala and sbt independently. You do not need a separate Scala installation. The first run downloads the compiler and build dependencies. This lab has been run with JDK 25.0.2; that is a verified local environment, not a minimum-version requirement.
 
-For a faster edit/run loop, start `sbt` once, enter `run`, edit a source file, and enter `run` again. Use `exit` to leave. IntelliJ IDEA users can open the root directory as an sbt project with the Scala plugin installed.
+For a faster edit/run loop, start `sbt` once, enter `runMain learning.PremiumLesson`, edit a source file, and run that command again. Use `exit` to leave. IntelliJ IDEA users can open the root directory as an sbt project with the Scala plugin installed.
 
 ## Follow the lessons
 
@@ -31,7 +31,7 @@ For a faster edit/run loop, start `sbt` once, enter `run`, edit a source file, a
 | 2 | Classes, constructor properties and instance methods | [Policy.scala](src/main/scala/learning/Policy.scala) |
 | 3 | Case classes, value equality, reference identity and `copy` | [CaseClassLesson.scala](src/main/scala/learning/CaseClassLesson.scala), [PolicySnapshot.scala](src/main/scala/learning/PolicySnapshot.scala) |
 | 4 | Companion objects, `apply` and named factories | [CompanionLesson.scala](src/main/scala/learning/CompanionLesson.scala) |
-| 5 | `Option`, `Some`, `None` and pattern matching | [OptionLesson.scala](src/main/scala/learning/OptionLesson.scala) |
+| 5 | `Option`, `Some`, `None`, pattern matching, `map` and `getOrElse` | [OptionLesson.scala](src/main/scala/learning/OptionLesson.scala) |
 
 `PremiumLesson.main` runs all the examples in order. Each later lesson prints a labelled section.
 
@@ -74,7 +74,7 @@ These commands run from the repository root. sbt uses tasks and settings rather 
 | `mvn compile` | `sbt compile` |
 | `mvn test` | `sbt test` (there are no automated tests in this lab yet) |
 | `mvn clean package` | `sbt clean test package` |
-| Run this application's entry point | `sbt run` |
+| Run this application's entry point | `sbt "runMain learning.PremiumLesson"` |
 | `mvn dependency:tree` | `sbt dependencyTree` |
 | Resolve dependencies | `sbt update` |
 | `mvn clean install`, targeting Maven local | `sbt clean test publishM2` |
@@ -105,17 +105,34 @@ progress.md                Covered topics and where to resume
 - [x] Expressions, methods and classes
 - [x] Case classes and companion objects
 - [x] Optional values and pattern matching
-- [ ] `Option.map`, lambdas and defaults
+- [x] `Option.map`, lambdas and defaults
 - [ ] Collections, `flatMap` and for-comprehensions
 - [ ] Testing and deeper sbt workflows
 - [ ] Futures and asynchronous error handling
 - [ ] Play routes, controllers, JSON and services
-- [ ] Akka concepts and version-specific integration
+- [ ] Apache Pekko concepts and version-specific integration
 
-Versions for a future Play/Akka module will be selected explicitly. The current pins are learning choices, not a claim about any employer's stack.
+The course targets Scala 2.13.18, Play 3 and Apache Pekko. Exact Play and Pekko patch versions will be selected when the framework module is introduced.
 
 ## Read along
 
 The companion [Scala/Play blog series](https://blog.zakaria.lu/topics/scala-play) explains the lessons from a Java/Spring developer's perspective.
 
 See [progress.md](progress.md) to pick up the next lesson. The goal is to understand each abstraction through code we can run and change.
+
+## Transform an optional value, then choose a fallback
+
+```scala
+result
+  .map((policy: PolicySnapshot) => policy.number)
+  .getOrElse("No policy number")
+```
+
+`map` transforms the contained policy into its number and preserves `None`.
+`getOrElse` returns that number or evaluates the fallback when absent.
+The types flow from `Option[PolicySnapshot]` to `Option[String]` to `String`.
+OptionLesson includes equivalent match expressions so both paths can be compared.
+
+The local Ivy repository mentioned above is a directory of built JARs and dependency
+metadata, normally `~/.ivy2/local`. Publishing there lets another sbt project on the
+same machine use your library. It does not upload anything to GitHub or Maven Central.
