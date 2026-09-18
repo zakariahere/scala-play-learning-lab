@@ -42,6 +42,7 @@ object PremiumLesson {
     CaseClassLesson.run()
     CompanionLesson.run()
     OptionLesson.run()
+    FlatMapLesson.run()
   }
 
   // Parameters have name: Type syntax; the Int after ')' is the result type.

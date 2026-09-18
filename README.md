@@ -32,6 +32,7 @@ For a faster edit/run loop, start `sbt` once, enter `runMain learning.PremiumLes
 | 3 | Case classes, value equality, reference identity and `copy` | [CaseClassLesson.scala](src/main/scala/learning/CaseClassLesson.scala), [PolicySnapshot.scala](src/main/scala/learning/PolicySnapshot.scala) |
 | 4 | Companion objects, `apply` and named factories | [CompanionLesson.scala](src/main/scala/learning/CompanionLesson.scala) |
 | 5 | `Option`, `Some`, `None`, pattern matching, `map` and `getOrElse` | [OptionLesson.scala](src/main/scala/learning/OptionLesson.scala) |
+| 6 | Optional lookups with `flatMap` versus nested `Option` | [FlatMapLesson.scala](src/main/scala/learning/FlatMapLesson.scala) |
 
 `PremiumLesson.main` runs all the examples in order. Each later lesson prints a labelled section.
 
@@ -106,7 +107,8 @@ progress.md                Covered topics and where to resume
 - [x] Case classes and companion objects
 - [x] Optional values and pattern matching
 - [x] `Option.map`, lambdas and defaults
-- [ ] Collections, `flatMap` and for-comprehensions
+- [x] Composing optional lookups with `flatMap`
+- [ ] Collections and for-comprehensions
 - [ ] Testing and deeper sbt workflows
 - [ ] Futures and asynchronous error handling
 - [ ] Play routes, controllers, JSON and services

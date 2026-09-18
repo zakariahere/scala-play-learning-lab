@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-map and getOrElse introduced and run. Next: introduce an optional second lookup and why map would nest Option, then derive flatMap. Keep the next lesson focused; no for-comprehensions yet.
+flatMap introduced with a second optional lookup. Next: resolve any nested Option questions, then show a for-comprehension as syntax for the same flatMap/map sequence. No new abstractions before that comparison.
 
 ## Teaching approach
 
@@ -68,3 +68,13 @@ Target Play 3 with Apache Pekko; retain Scala 2.13.18. This replaces the earlier
 
 ## Blog update (2026-09-18)
 Part 3 is confirmed published. Part 4, From Pattern Matching to map and getOrElse, is saved as a draft with a fresh mascot scene and explanatory diagram. Next lesson remains optional composition and flatMap.
+
+## Session 11: flatMap and optional composition (2026-09-18)
+- Added FlatMapLesson.scala, invoked by PremiumLesson; preserved learner edits in OptionLesson and mine/.
+- findContactEmail returns Option[String]. map consequently yields Option[Option[String]]; flatMap returns the lookup result directly, matching the explicit Some/None match.
+- Three verified scenarios: both found; existing policy without email (explicit POL-002 fixture); missing policy. map outputs Some(Some(email)), Some(None), None. flatMap outputs Some(email), None, None.
+- Explained that the callback is skipped on None and flattening loses the distinction between missing policy and missing email. No error modelling deep dive yet.
+- runMain learning.PremiumLesson passed, including match/flatMap equivalence assertions. Included in the repository synchronization following this lesson.
+- Blog: accumulate the for-comprehension comparison before proposing Part 5; Part 4 remains last-known draft.
+
+Repository synchronization: included the flatMap lesson, updated entry point and README, progress notes, and the learner-owned mine/MyFirstTest.scala practice file unchanged.
