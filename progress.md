@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-flatMap introduced with a second optional lookup. Next: resolve any nested Option questions, then show a for-comprehension as syntax for the same flatMap/map sequence. No new abstractions before that comparison.
+For-comprehensions introduced as the same Option flatMap/map sequence. Answer questions on <-, yield, scope and None propagation, then introduce List and map/filter/find with Java Streams comparisons. Guards, advanced patterns and other effect types are not taught yet.
 
 ## Teaching approach
 
@@ -78,3 +78,11 @@ Part 3 is confirmed published. Part 4, From Pattern Matching to map and getOrEls
 - Blog: accumulate the for-comprehension comparison before proposing Part 5; Part 4 remains last-known draft.
 
 Repository synchronization: included the flatMap lesson, updated entry point and README, progress notes, and the learner-owned mine/MyFirstTest.scala practice file unchanged.
+
+## Session 12: for-comprehensions (2026-09-18)
+- Added ForComprehensionLesson.scala with contactLabelWithMethods and contactLabelWithFor; entry point runs both.
+- Two simple generators translate to outer flatMap and inner map. policy <- result binds a PolicySnapshot; email <- findContactEmail(policy) binds a String; yield builds a String and the overall expression returns Option[String].
+- Both bound names are in scope for yield. None skips subsequent callback bodies; no unsafe get, mutation or asynchronous behavior introduced.
+- Checked both methods against expected values for present policy/email, missing email (explicit fixture) and missing policy. runMain learning.PremiumLesson passed all six assertions.
+- Part 5 now worth suggesting: From flatMap to for-comprehensions: composing optional lookups. Suggested only, no draft or publication.
+- Lesson, README and public progress included in the repository synchronization for this session.

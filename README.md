@@ -33,6 +33,7 @@ For a faster edit/run loop, start `sbt` once, enter `runMain learning.PremiumLes
 | 4 | Companion objects, `apply` and named factories | [CompanionLesson.scala](src/main/scala/learning/CompanionLesson.scala) |
 | 5 | `Option`, `Some`, `None`, pattern matching, `map` and `getOrElse` | [OptionLesson.scala](src/main/scala/learning/OptionLesson.scala) |
 | 6 | Optional lookups with `flatMap` versus nested `Option` | [FlatMapLesson.scala](src/main/scala/learning/FlatMapLesson.scala) |
+| 7 | For-comprehensions and their `flatMap`/`map` translation | [ForComprehensionLesson.scala](src/main/scala/learning/ForComprehensionLesson.scala) |
 
 `PremiumLesson.main` runs all the examples in order. Each later lesson prints a labelled section.
 
@@ -108,7 +109,8 @@ progress.md                Covered topics and where to resume
 - [x] Optional values and pattern matching
 - [x] `Option.map`, lambdas and defaults
 - [x] Composing optional lookups with `flatMap`
-- [ ] Collections and for-comprehensions
+- [x] For-comprehensions over Option
+- [ ] Collections
 - [ ] Testing and deeper sbt workflows
 - [ ] Futures and asynchronous error handling
 - [ ] Play routes, controllers, JSON and services
