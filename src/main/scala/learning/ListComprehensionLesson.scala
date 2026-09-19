@@ -58,5 +58,56 @@ object ListComprehensionLesson {
     assert(experiencedNumbers == experiencedWithFilter)
     assert(noMatches.isEmpty)
     assert(emptyInput.isEmpty)
+
+    println("--- Two generators: each policy, then each channel ---")
+
+    // These are labels only: this lesson sends no notifications.
+    val channels: List[String] = List("email", "sms")
+
+    // For each policy, visit BOTH channels in their list order.
+    // policy and channel are both available to the yield expression.
+    val notifications: List[String] = for {
+      policy <- policies
+      channel <- channels
+    } yield policy.number + " via " + channel
+
+    // The inner map builds one List[String] per policy.
+    // The outer flatMap concatenates those lists into one List[String].
+    val notificationsWithMethods: List[String] = policies.flatMap { policy =>
+      channels.map { channel =>
+        policy.number + " via " + channel
+      }
+    }
+
+    // Using map on the outside instead preserves the separate inner lists.
+    val grouped: List[List[String]] = policies.map { policy =>
+      channels.map { channel =>
+        policy.number + " via " + channel
+      }
+    }
+
+    val noNotifications: List[String] = for {
+      policy <- policies
+      channel <- List.empty[String]
+    } yield policy.number + " via " + channel
+
+    println("Two generators: " + notifications)
+    println("flatMap + map: " + notificationsWithMethods)
+    println("map + map (nested): " + grouped)
+    println("No channels: " + noNotifications)
+
+    val expected = List(
+      "POL-001 via email", "POL-001 via sms",
+      "POL-002 via email", "POL-002 via sms",
+      "POL-003 via email", "POL-003 via sms"
+    )
+    assert(notifications == expected)
+    assert(notificationsWithMethods == expected)
+    assert(grouped == List(
+      List("POL-001 via email", "POL-001 via sms"),
+      List("POL-002 via email", "POL-002 via sms"),
+      List("POL-003 via email", "POL-003 via sms")
+    ))
+    assert(noNotifications.isEmpty)
   }
 }

@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-List for-comprehensions introduced and run: one generator maps, an if guard selects through withFilter. Next: two List generators, their flatMap/map translation, and result ordering. Wait for learner readiness before introducing them.
+Two List generators introduced and run: outer flatMap, inner map, ordered combinations versus nested Lists. Next: make the second List depend on the first value (per-policy notification channels), including a policy with no channels.
 
 ## Teaching approach
 
@@ -124,3 +124,12 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - runMain learning.PremiumLesson passed, including expected order, method equivalence, no matches and empty-input assertions.
 - Next: two List generators and flatMap, after this explanation. Accumulate that material before suggesting another article.
 - Blog Part 6 was saved as a draft in the preceding session; this lesson does not publish it.
+
+
+## Session 17: Two List generators and flatMap (2026-09-19)
+- Extended ListComprehensionLesson with three policies and two channel labels (email, sms). No notifications are sent.
+- Two generators produce six strings in policy-first, channel-second order; compared comprehension to outer flatMap and inner map.
+- Contrasted outer map yielding List[List[String]] with flatMap concatenating the per-policy Lists into List[String].
+- Empty channel List yields no combinations. Explained independent Lists form every combination, not positional pairing.
+- runMain learning.PremiumLesson passed all assertions, including exact combination order, nested groups and empty channels.
+- Next: dependent second generator and an empty branch. Part 7 now has a coherent possible angle: List for-comprehensions, guards and flatMap. Suggest only; no draft or publication in this lesson.
