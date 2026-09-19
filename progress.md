@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-List.find introduced and run. Next revisit for-comprehensions over List with one generator, then an if guard corresponding to filtering (withFilter in translation). Explain collection result types before multiple generators.
+List for-comprehensions introduced and run: one generator maps, an if guard selects through withFilter. Next: two List generators, their flatMap/map translation, and result ordering. Wait for learner readiness before introducing them.
 
 ## Teaching approach
 
@@ -114,3 +114,13 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Composed find result with Option.map and getOrElse to display a number or fallback. No unsafe extraction.
 - runMain learning.PremiumLesson passed; assertions cover found, missing, first of multiple matches and empty input.
 - Part 6 ready to suggest: Scala Collections for Java Developers: map, filter and find. Suggested only; no draft created.
+
+
+## Session 16: List for-comprehensions and guards (2026-09-19)
+- Added ListComprehensionLesson and connected it to PremiumLesson.
+- One generator with yield returns List[String], equivalent to List.map.
+- Guard selects policies with at least three claim-free years; translates to withFilter followed by map, giving POL-001 and POL-003.
+- Distinguished withFilter from filter: deferred selection without a filtered intermediate List; same results here with pure callbacks.
+- runMain learning.PremiumLesson passed, including expected order, method equivalence, no matches and empty-input assertions.
+- Next: two List generators and flatMap, after this explanation. Accumulate that material before suggesting another article.
+- Blog Part 6 was saved as a draft in the preceding session; this lesson does not publish it.

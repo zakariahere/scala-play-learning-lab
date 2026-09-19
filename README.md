@@ -114,6 +114,7 @@ progress.md                Covered topics and where to resume
 - [x] List construction and map
 - [x] Collection filtering with Boolean predicates
 - [x] Collection searching with find
+- [x] List for-comprehensions: one generator, yield and an if guard (`ListComprehensionLesson.scala`)
 - [ ] Testing and deeper sbt workflows
 - [ ] Futures and asynchronous error handling
 - [ ] Play routes, controllers, JSON and services
