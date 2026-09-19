@@ -29,5 +29,32 @@ object ListLesson {
 
     assert(numbers == List("POL-001", "POL-002", "POL-003"))
     assert(noNumbers.isEmpty)
+
+    println("--- filter: keep policies matching a condition ---")
+    // A predicate is a function returning Boolean: true means keep this element.
+    val experiencedPolicies: List[PolicySnapshot] =
+      policies.filter((policy: PolicySnapshot) => policy.claimFreeYears >= 3)
+    val experiencedNumbers: List[String] =
+      experiencedPolicies.map((policy: PolicySnapshot) => policy.number)
+
+    // Using the same predicate with map returns the decisions, not the policies.
+    val decisions: List[Boolean] =
+      policies.map((policy: PolicySnapshot) => policy.claimFreeYears >= 3)
+
+    println("Predicate results with map: " + decisions)
+    println("Matching policies: " + experiencedPolicies)
+    println("Matching numbers: " + experiencedNumbers)
+    println("Original policy count: " + policies.size)
+
+    val noMatches: List[PolicySnapshot] =
+      policies.filter((policy: PolicySnapshot) => policy.claimFreeYears >= 10)
+    println("No matching policies: " + noMatches)
+
+    assert(experiencedPolicies == List(
+      PolicySnapshot("POL-001", 600, 3),
+      PolicySnapshot("POL-003", 500, 3)
+    ))
+    assert(decisions == List(true, false, true))
+    assert(noMatches.isEmpty)
   }
 }

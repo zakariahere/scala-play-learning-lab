@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-List construction and map introduced and run. Next: filter using a Boolean predicate to retain matching policies, then find returning Option. Defer List flatMap and for-comprehensions until these are clear.
+List.filter introduced and run, including a Boolean predicate and filter followed by map. Next introduce find: first matching policy as Option[PolicySnapshot], contrasting all matches with filter. Defer collection for-comprehension guards.
 
 ## Teaching approach
 
@@ -98,3 +98,11 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - runMain learning.PremiumLesson passed, including expected ordered numbers and empty-result assertions.
 - Learner independently added User case class/companion lookup and Option.map/getOrElse practice in mine/. Inspected and preserved unchanged; compiled with the project. Practice main was not executed in this lesson.
 - Next: filter, then find. No new blog proposal yet; accumulate collection operations.
+
+## Session 14: List.filter (2026-09-19)
+- Extended ListLesson with claimFreeYears >= 3 predicate; true keeps a policy, false excludes it from the result.
+- filter returns List[PolicySnapshot], retaining original elements and relative order; original list remains unchanged.
+- Contrasted map with the same Boolean function (List(true,false,true)) against filter (POL-001 and POL-003).
+- Demonstrated filter then map to get selected numbers and >= 10 producing an empty list.
+- runMain learning.PremiumLesson passed; assertions verify exact selected policies/order, predicate results, and no-match case.
+- Next lesson: find returning Option; enough material for a collections article after that lesson, not yet proposed.
