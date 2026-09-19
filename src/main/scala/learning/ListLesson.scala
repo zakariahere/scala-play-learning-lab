@@ -56,5 +56,34 @@ object ListLesson {
     ))
     assert(decisions == List(true, false, true))
     assert(noMatches.isEmpty)
+
+    println("--- find: the first matching policy, if any ---")
+    val found: Option[PolicySnapshot] =
+      policies.find((policy: PolicySnapshot) => policy.number == "POL-002")
+    val missing: Option[PolicySnapshot] =
+      policies.find((policy: PolicySnapshot) => policy.number == "POL-999")
+
+    // Both POL-001 and POL-003 satisfy this condition; find returns the first.
+    val firstExperienced: Option[PolicySnapshot] =
+      policies.find((policy: PolicySnapshot) => policy.claimFreeYears >= 3)
+
+    // After find, map is Option.map, not List.map.
+    val display: String = found
+      .map((policy: PolicySnapshot) => policy.number)
+      .getOrElse("Policy not found")
+    val missingDisplay: String = missing
+      .map((policy: PolicySnapshot) => policy.number)
+      .getOrElse("Policy not found")
+
+    println("Found by number: " + found)
+    println("Missing by number: " + missing)
+    println("First experienced policy: " + firstExperienced)
+    println("Found display: " + display)
+    println("Missing display: " + missingDisplay)
+
+    assert(found == Some(PolicySnapshot("POL-002", 600, 2)))
+    assert(missing == None)
+    assert(firstExperienced == Some(PolicySnapshot("POL-001", 600, 3)))
+    assert(noPolicies.find((policy: PolicySnapshot) => policy.number == "POL-002") == None)
   }
 }

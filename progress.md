@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-List.filter introduced and run, including a Boolean predicate and filter followed by map. Next introduce find: first matching policy as Option[PolicySnapshot], contrasting all matches with filter. Defer collection for-comprehension guards.
+List.find introduced and run. Next revisit for-comprehensions over List with one generator, then an if guard corresponding to filtering (withFilter in translation). Explain collection result types before multiple generators.
 
 ## Teaching approach
 
@@ -106,3 +106,11 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Demonstrated filter then map to get selected numbers and >= 10 producing an empty list.
 - runMain learning.PremiumLesson passed; assertions verify exact selected policies/order, predicate results, and no-match case.
 - Next lesson: find returning Option; enough material for a collections article after that lesson, not yet proposed.
+
+## Session 15: List.find returning Option (2026-09-19)
+- Extended ListLesson with number-based find for POL-002 and POL-999; returns Some(snapshot) or None.
+- Contrasted filter (all matches in List) with find (first match in Option). find stops after the first match and does not validate uniqueness.
+- Demonstrated claimFreeYears >= 3 returns POL-001 although POL-003 also qualifies; selection follows list order.
+- Composed find result with Option.map and getOrElse to display a number or fallback. No unsafe extraction.
+- runMain learning.PremiumLesson passed; assertions cover found, missing, first of multiple matches and empty input.
+- Part 6 ready to suggest: Scala Collections for Java Developers: map, filter and find. Suggested only; no draft created.
