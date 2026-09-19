@@ -116,6 +116,7 @@ progress.md                Covered topics and where to resume
 - [x] Collection searching with find
 - [x] List for-comprehensions: one generator, yield and an if guard (`ListComprehensionLesson.scala`)
 - [x] Two List generators: `flatMap` + `map`, nested results and combination order
+- [x] Dependent List generators: per-policy channels and empty branches
 - [ ] Testing and deeper sbt workflows
 - [ ] Futures and asynchronous error handling
 - [ ] Play routes, controllers, JSON and services

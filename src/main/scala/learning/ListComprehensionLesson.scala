@@ -1,6 +1,13 @@
 package learning
 
 object ListComprehensionLesson {
+  // Fictional lookup: each policy can have zero, one or several channels.
+  def channelsFor(policy: PolicySnapshot): List[String] = {
+    if (policy.number == "POL-001") List("email", "sms")
+    else if (policy.number == "POL-003") List("sms")
+    else List.empty[String]
+  }
+
   def run(): Unit = {
     println("--- List for-comprehensions: transform, then add a guard ---")
 
@@ -109,5 +116,32 @@ object ListComprehensionLesson {
       List("POL-003 via email", "POL-003 via sms")
     ))
     assert(noNotifications.isEmpty)
+
+    println("--- Dependent generator: channels for the current policy ---")
+
+    // The second generator can use the value bound by the first generator.
+    val selectedNotifications: List[String] = for {
+      policy <- policies
+      channel <- channelsFor(policy)
+    } yield policy.number + " via " + channel
+
+    val selectedWithMethods: List[String] = policies.flatMap { policy =>
+      channelsFor(policy).map { channel =>
+        policy.number + " via " + channel
+      }
+    }
+
+    // POL-002 contributes nothing, but POL-003 is still processed afterwards.
+    println("POL-001 channels: " + channelsFor(policies(0)))
+    println("POL-002 channels: " + channelsFor(policies(1)))
+    println("POL-003 channels: " + channelsFor(policies(2)))
+    println("Dependent result: " + selectedNotifications)
+    println("Dependent flatMap + map: " + selectedWithMethods)
+
+    val selectedExpected = List(
+      "POL-001 via email", "POL-001 via sms", "POL-003 via sms"
+    )
+    assert(selectedNotifications == selectedExpected)
+    assert(selectedWithMethods == selectedExpected)
   }
 }

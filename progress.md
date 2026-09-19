@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Two List generators introduced and run: outer flatMap, inner map, ordered combinations versus nested Lists. Next: make the second List depend on the first value (per-policy notification channels), including a policy with no channels.
+Dependent List generators introduced and run. Next: traits with a PolicyRepository contract and an in-memory implementation, then multiple parameter lists, implicit parameters and implicit classes. Bring these forward because the learner encounters traits and implicits at work.
 
 ## Teaching approach
 
@@ -133,3 +133,12 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Empty channel List yields no combinations. Explained independent Lists form every combination, not positional pairing.
 - runMain learning.PremiumLesson passed all assertions, including exact combination order, nested groups and empty channels.
 - Next: dependent second generator and an empty branch. Part 7 now has a coherent possible angle: List for-comprehensions, guards and flatMap. Suggest only; no draft or publication in this lesson.
+
+
+## Session 18: Dependent List generators (2026-09-19)
+- Added channelsFor(policy): List[String] with fictional fixtures: POL-001 has email/sms, POL-002 none, POL-003 sms.
+- Second generator calls channelsFor(policy), using the first bound value; compared directly with flatMap/map.
+- Verified ordered result contains three labels; empty middle branch contributes nothing and processing continues for POL-003.
+- runMain learning.PremiumLesson passed all assertions. No messages are sent.
+- Updated near-term order per workplace needs: traits/repository contract, multiple parameter lists, implicit parameters, implicit classes. Traits and implicits are previewed but not yet taught in depth.
+- No new blog proposal: this is a short continuation of Part 7. Next lesson is traits.
