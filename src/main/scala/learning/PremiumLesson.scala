@@ -44,6 +44,7 @@ object PremiumLesson {
     OptionLesson.run()
     FlatMapLesson.run()
     ForComprehensionLesson.run()
+    ListLesson.run()
   }
 
   // Parameters have name: Type syntax; the Int after ')' is the result type.

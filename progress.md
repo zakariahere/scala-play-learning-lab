@@ -1,6 +1,6 @@
 # Learning progress
 
-Updated: 2026-09-18
+Updated: 2026-09-19
 
 ## Covered with runnable examples
 
@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-For-comprehensions introduced as the same Option flatMap/map sequence. Answer questions on <-, yield, scope and None propagation, then introduce List and map/filter/find with Java Streams comparisons. Guards, advanced patterns and other effect types are not taught yet.
+List construction and map introduced and run. Next: filter using a Boolean predicate to retain matching policies, then find returning Option. Defer List flatMap and for-comprehensions until these are clear.
 
 ## Teaching approach
 
@@ -86,3 +86,15 @@ Repository synchronization: included the flatMap lesson, updated entry point and
 - Checked both methods against expected values for present policy/email, missing email (explicit fixture) and missing policy. runMain learning.PremiumLesson passed all six assertions.
 - Part 5 now worth suggesting: From flatMap to for-comprehensions: composing optional lookups. Suggested only, no draft or publication.
 - Lesson, README and public progress included in the repository synchronization for this session.
+
+Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to For-Comprehensions, saved as a draft with mascot and two diagrams. Learner reports enjoying comprehensions. Next: collections after any remaining questions.
+
+
+## Session 13: List construction and map (2026-09-19)
+- Added ListLesson.scala with three fictional PolicySnapshot values and an explicit one-policy-to-String lambda.
+- Explained ordered immutable Scala List, companion factory syntax, type parameter, same-length ordered transformation and preservation of the input list.
+- Contrasted Option.map (zero or one value) with List.map (each element); Java Streams comparison uses stream().map(...).toList(), while Scala List.map directly builds the result eagerly.
+- Added typed empty List example: List.empty[PolicySnapshot], yielding List() without callback evaluation.
+- runMain learning.PremiumLesson passed, including expected ordered numbers and empty-result assertions.
+- Learner independently added User case class/companion lookup and Option.map/getOrElse practice in mine/. Inspected and preserved unchanged; compiled with the project. Practice main was not executed in this lesson.
+- Next: filter, then find. No new blog proposal yet; accumulate collection operations.
