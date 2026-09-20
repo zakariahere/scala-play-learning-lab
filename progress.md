@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Traits introduced with abstract find and concrete inherited exists. Next: multiple parameter lists using the repository, then implicit parameters and implicit classes. Learner reports understanding the trait contract lesson; preserve pace.
+Multiple parameter lists introduced with describe(number)(repository), both arguments explicit. Next: implicit parameters using the same PolicyRepository, show explicit and compiler-supplied calls side by side, then missing/ambiguous candidates. Implicit classes afterwards.
 
 ## Teaching approach
 
@@ -161,3 +161,11 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Compared with Java interface default methods; explained abstract versus concrete, and override required when replacing a concrete method.
 - runMain learning.PremiumLesson passed: exists true for known policy, false for missing and empty repository; earlier assertions also passed.
 - Next: multiple parameter lists, then implicit parameters. Trait foundations now support a possible Part 8: Scala Traits for Java Developers - Contracts and Shared Behavior. Suggested only, no article created.
+
+
+## Session 21: Multiple parameter lists (2026-09-20)
+- Added ParameterListsLesson.describe(number)(repository), preserving TraitLesson.describe(number, repository) for comparison.
+- Explained one method, two parameter lists, both names available in the body, and explicit arguments at this stage.
+- runMain learning.PremiumLesson passed: same found result for both signatures, missing result and explicit empty repository.
+- Next: implicit parameter list and an implicit val; explain compile-time argument insertion using the same example. Defer partial application and currying terminology.
+- Blog numbering: user-written sbt article is Part 8; traits is Part 9 (saved as draft in prior session). Next new article is Part 10. Accumulate implicit-parameter material before suggesting it.
