@@ -118,6 +118,7 @@ progress.md                Covered topics and where to resume
 - [x] Two List generators: `flatMap` + `map`, nested results and combination order
 - [x] Dependent List generators: per-policy channels and empty branches
 - [x] Traits: `PolicyRepository` contract, in-memory implementation and calling through the trait
+- [x] Concrete trait methods: inherited `exists` reuses the implemented `find`
 - [ ] Testing and deeper sbt workflows
 - [ ] Futures and asynchronous error handling
 - [ ] Play routes, controllers, JSON and services

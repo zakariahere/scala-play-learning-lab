@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Traits introduced through PolicyRepository and InMemoryPolicyRepository. Next: a concrete method in a trait (shared behavior), then multiple parameter lists, implicit parameters and implicit classes. Keep workplace relevance and current pace.
+Traits introduced with abstract find and concrete inherited exists. Next: multiple parameter lists using the repository, then implicit parameters and implicit classes. Learner reports understanding the trait contract lesson; preserve pace.
 
 ## Teaching approach
 
@@ -152,3 +152,12 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - runMain learning.PremiumLesson passed: found policy, missing number and empty repository; exact lookup result asserted too.
 - Next: concrete trait method, then multiple parameter lists leading to implicit parameters and implicit classes. Do not rush into trait linearization or type classes.
 - No new article yet: accumulate shared trait behavior and implementation examples before suggesting a coherent part.
+
+
+## Session 20: Concrete methods in traits (2026-09-20)
+- Learner reports understanding the preceding trait-contract lesson.
+- Added PolicyRepository.exists(number): Boolean = find(number).isDefined.
+- InMemoryPolicyRepository unchanged: inherits exists, whose find call dispatches to its implementation.
+- Compared with Java interface default methods; explained abstract versus concrete, and override required when replacing a concrete method.
+- runMain learning.PremiumLesson passed: exists true for known policy, false for missing and empty repository; earlier assertions also passed.
+- Next: multiple parameter lists, then implicit parameters. Trait foundations now support a possible Part 8: Scala Traits for Java Developers - Contracts and Shared Behavior. Suggested only, no article created.

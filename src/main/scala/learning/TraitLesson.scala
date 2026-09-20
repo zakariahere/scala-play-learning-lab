@@ -33,5 +33,19 @@ object TraitLesson {
     assert(found == "Found policy POL-001")
     assert(missing == "Policy not found")
     assert(empty == "Policy not found")
+
+    println("--- Concrete trait method: shared exists behavior ---")
+    // InMemoryPolicyRepository only implements find; exists comes from the trait.
+    val exists = repository.exists("POL-001")
+    val missingExists = repository.exists("POL-999")
+    val emptyExists = emptyRepository.exists("POL-001")
+
+    println("Known policy exists: " + exists)
+    println("Missing policy exists: " + missingExists)
+    println("Policy in empty repository exists: " + emptyExists)
+
+    assert(exists)
+    assert(!missingExists)
+    assert(!emptyExists)
   }
 }
