@@ -1,6 +1,6 @@
 # Learning progress
 
-Updated: 2026-09-19
+Updated: 2026-09-20
 
 ## Covered with runnable examples
 
@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Dependent List generators introduced and run. Next: traits with a PolicyRepository contract and an in-memory implementation, then multiple parameter lists, implicit parameters and implicit classes. Bring these forward because the learner encounters traits and implicits at work.
+Traits introduced through PolicyRepository and InMemoryPolicyRepository. Next: a concrete method in a trait (shared behavior), then multiple parameter lists, implicit parameters and implicit classes. Keep workplace relevance and current pace.
 
 ## Teaching approach
 
@@ -142,3 +142,13 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - runMain learning.PremiumLesson passed all assertions. No messages are sent.
 - Updated near-term order per workplace needs: traits/repository contract, multiple parameter lists, implicit parameters, implicit classes. Traits and implicits are previewed but not yet taught in depth.
 - No new blog proposal: this is a short continuation of Part 7. Next lesson is traits.
+
+
+## Session 19: Traits as contracts (2026-09-20)
+- Added PolicyRepository trait declaring find(number): Option[PolicySnapshot], with no method body.
+- InMemoryPolicyRepository extends the trait and implements find using List.find. Explained extends versus Java implements and explicit override (optional for abstract implementation).
+- TraitLesson.describe accepts PolicyRepository; runtime object supplies the implementation. Explicit ordinary dependency passing, with no framework wiring.
+- Compared declared trait type to actual class, preserving existing PolicySnapshot and earlier lessons.
+- runMain learning.PremiumLesson passed: found policy, missing number and empty repository; exact lookup result asserted too.
+- Next: concrete trait method, then multiple parameter lists leading to implicit parameters and implicit classes. Do not rush into trait linearization or type classes.
+- No new article yet: accumulate shared trait behavior and implementation examples before suggesting a coherent part.
