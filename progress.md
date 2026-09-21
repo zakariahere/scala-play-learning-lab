@@ -211,3 +211,13 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - New combined example is introduced and assistant-verified; no learner practice or independent mastery claimed.
 - Blog readiness: enough coherent material to propose Part 11, "Scala 2 Implicit Classes: Where Did That Method Come From?" Scope: Java wrapper equivalent, extension syntax/import, compiler conversion, and combining an extension with an implicit repository argument. Next lesson's two missing-input diagnostics would strengthen it.
 - Suggested only: no blog draft or publication. Last recorded Part 10 draft is 1f26a27c-fd2c-4e6f-b6dd-e382d0b1285d; live blog state must be verified before any article creation. Preserve Part 8 sbt, Part 9 traits, Part 10 implicit parameters, Part 11 next.
+
+## Scala/Play Part 11 blog draft (2026-09-21)
+- Live admin verified Part 10 published and no existing Part 11 before creating the draft.
+- Saved and read back draft 4b4540f3-c58d-46e4-82b7-c66f81e9f385: "Scala/Play, Part 11: Scala 2 Implicit Classes - Where Did That Method Come From?"
+- Slug: scala-play-part-11-scala-2-implicit-classes-where-did-that-method-come-from. Review at https://zakaria.lu/#blog-admin. Update this existing post rather than creating a duplicate.
+- Explains the ordinary wrapper first, the syntax import and generated conversion, then the implicit repository argument; includes the three verified calls from source commit 7b43025.
+- Branded cover, fresh canonical mascot science-museum scene and two explanatory diagrams reviewed and uploaded; all four media responses HTTP 200. All 11 code blocks verified unchanged in readback.
+- Local artifacts: C:/Users/Zakaria/Documents/Codex/2026-09-21/referenced-chatgpt-conversation-this-is-an/outputs/scala-play-11. Desktop/mobile preview checked.
+- Target Scala/Play hub adopts the scala-play tag. Existing hub blurb still mentions Akka and nextUp still refers to classes/constructors; noted for a separate registry change, not edited or deployed here.
+- Draft only; no publication. Next new article number is 12. Next lesson remains missing syntax import versus missing repository in the combined example.
