@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Implicit parameters introduced with describe(number)(implicit repository) and local implicit val localStore. Next: missing and ambiguous implicit candidates with actual compiler diagnostics, then implicit classes. Keep the same repository example.
+Missing and ambiguous implicit candidates demonstrated with real Scala 2.13.18 compiler diagnostics; explicit fixes run. Next: implicit classes to explain extension-style methods, with explicit wrapper equivalent and required import. Keep type classes and deeper search precedence for later.
 
 ## Teaching approach
 
@@ -179,3 +179,13 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - runMain learning.PremiumLesson passed: explicit/inferred found results, missing policy, explicit empty repository; prior assertions also passed.
 - Next: demonstrate missing/ambiguous candidates using compiler diagnostics before implicit classes. Do not equate a missing policy with a missing implicit dependency.
 - Blog: accumulate search/error material before suggesting Part 10; Part 8 is the user's sbt article and Part 9 is traits.
+
+
+## Session 23: Missing and ambiguous implicit candidates (2026-09-21)
+- Added intentionally failing examples outside src under examples/implicit-errors, plus reproducible sbt-shell instructions and verified diagnostics.
+- MissingRepository has ordinary val store, not an implicit candidate. Compiler reports could not find implicit value for repository.
+- AmbiguousRepository has two equally suitable PolicyRepository implicit vals in the same scope; compiler reports both candidates. Declaration order/data contents do not resolve this ambiguity.
+- Added runnable ImplicitSearchLesson: ordinary value passed explicitly, and second candidate explicitly selected despite two implicit values in scope.
+- Both expected compilation failures verified; subsequent normal runMain learning.PremiumLesson passed all assertions. sbt set modifications were session-only; build.sbt unchanged.
+- Windows launcher stripped quotes from initial command-line set; documented sbt interactive commands instead, which were verified via standard input.
+- Next: implicit classes. Part 10 now worth suggesting: Scala 2 Implicit Parameters - What the Compiler Supplies, and Why It Refuses. No draft or publication in this lesson.

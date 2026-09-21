@@ -49,6 +49,7 @@ object PremiumLesson {
     TraitLesson.run()
     ParameterListsLesson.run()
     ImplicitParameterLesson.run()
+    ImplicitSearchLesson.run()
   }
 
   // Parameters have name: Type syntax; the Int after ')' is the result type.
