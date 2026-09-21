@@ -7,7 +7,7 @@
 
 A hands-on learning journey through Scala, sbt and eventually Play. Small insurance-policy examples connect familiar Java concepts to Scala's expressions, data modelling and optional values.
 
-**Current stage:** Scala foundations. Play 3 and Apache Pekko are future topics, not installed dependencies. All policy data and pricing rules are fictional.
+**Current stage:** Scala 2 language essentials through traits, implicit parameters and implicit classes, including an extension method with an implicit repository argument. Play 3 and Apache Pekko are future topics, not installed dependencies. All policy data and pricing rules are fictional.
 
 ## Run the lab
 
@@ -35,8 +35,19 @@ For a faster edit/run loop, start `sbt` once, enter `runMain learning.PremiumLes
 | 6 | Optional lookups with `flatMap` versus nested `Option` | [FlatMapLesson.scala](src/main/scala/learning/FlatMapLesson.scala) |
 | 7 | For-comprehensions and their `flatMap`/`map` translation | [ForComprehensionLesson.scala](src/main/scala/learning/ForComprehensionLesson.scala) |
 | 8 | Immutable `List`, `map`, `filter` and `find` returning `Option` | [ListLesson.scala](src/main/scala/learning/ListLesson.scala) |
+| 9 | List for-comprehensions, guards, two generators, `flatMap` and dependent generators | [ListComprehensionLesson.scala](src/main/scala/learning/ListComprehensionLesson.scala) |
+| 10 | Traits as repository contracts, implementations and inherited concrete methods | [TraitLesson.scala](src/main/scala/learning/TraitLesson.scala), [PolicyRepository.scala](src/main/scala/learning/PolicyRepository.scala), [InMemoryPolicyRepository.scala](src/main/scala/learning/InMemoryPolicyRepository.scala) |
+| 11 | Multiple parameter lists: `describe(number)(repository)` | [ParameterListsLesson.scala](src/main/scala/learning/ParameterListsLesson.scala) |
+| 12 | Implicit parameters: compiler-supplied repository arguments and explicit alternatives | [ImplicitParameterLesson.scala](src/main/scala/learning/ImplicitParameterLesson.scala) |
+| 13 | Missing and ambiguous implicit arguments: compiler diagnostics and explicit fixes | [ImplicitSearchLesson.scala](src/main/scala/learning/ImplicitSearchLesson.scala), [compiler examples and instructions](examples/implicit-errors/lesson.md) |
+| 14 | Implicit classes: ordinary wrappers, extension-style methods and the required import | [ImplicitClassLesson.scala](src/main/scala/learning/ImplicitClassLesson.scala) |
+| 15 | Combining an extension method with an implicit parameter: `policyNumber.lookup` | [ImplicitClassLesson.scala](src/main/scala/learning/ImplicitClassLesson.scala) |
 
-`PremiumLesson.main` runs all the examples in order. Each later lesson prints a labelled section.
+`PremiumLesson.main` runs the learning examples in order. Each later lesson prints a labelled section; assertions check the expected results. The deliberately failing compiler examples live outside `src/` and are run separately using their linked instructions.
+
+These steps group the runnable material; they are not blog part numbers or a claim of independent mastery. See [progress.md](progress.md) for the detailed session history.
+
+**Resume here:** distinguish a missing syntax import from a missing repository argument in the combined implicit-class example. That comparison is the next lesson, not yet implemented.
 
 A few results to look for:
 
@@ -76,7 +87,7 @@ These commands run from the repository root. sbt uses tasks and settings rather 
 | Maven intent | sbt command |
 | --- | --- |
 | `mvn compile` | `sbt compile` |
-| `mvn test` | `sbt test` (there are no automated tests in this lab yet) |
+| `mvn test` | `sbt test` (no separate `src/test` suite yet; run the lesson assertions with `runMain`) |
 | `mvn clean package` | `sbt clean test package` |
 | Run this application's entry point | `sbt "runMain learning.PremiumLesson"` |
 | `mvn dependency:tree` | `sbt dependencyTree` |
@@ -124,6 +135,7 @@ progress.md                Covered topics and where to resume
 - [x] Implicit parameters: compiler-supplied repository arguments and explicit alternatives
 - [x] Missing and ambiguous implicits: [compiler examples and fixes](examples/implicit-errors/lesson.md)
 - [x] Implicit classes: explicit wrapper calls, extension-style syntax and the required import (`ImplicitClassLesson.scala`)
+- [x] Extension methods with implicit parameters: explicit wrapper, explicit repository and fully inferred calls
 - [ ] Testing and deeper sbt workflows
 - [ ] Futures and asynchronous error handling
 - [ ] Play routes, controllers, JSON and services
