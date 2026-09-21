@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Learner reports understanding implicit classes after the explicit-wrapper-first explanation. Added a worked example combining an extension method with an implicit repository parameter; all explicit and inferred calls verified. Independent mastery is not yet assessed. Next: demonstrate missing syntax import versus missing repository in this combined example, then resume the wider Scala 2 roadmap. Keep type classes and deeper implicit-search precedence for later.
+Learner previously reported understanding implicit classes after the explicit-wrapper-first explanation. Missing syntax import versus missing implicit repository is now demonstrated with two verified compiler failures and separate runnable repairs. These diagnostics and repairs are introduced and assistant-verified; learner practice and independent mastery are not yet assessed. Next: Either, starting from the familiar Option lookup and retaining a failure reason instead of only absence. Keep type classes and deeper implicit-search precedence for later.
 
 ## Teaching approach
 
@@ -221,3 +221,17 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Local artifacts: C:/Users/Zakaria/Documents/Codex/2026-09-21/referenced-chatgpt-conversation-this-is-an/outputs/scala-play-11. Desktop/mobile preview checked.
 - Target Scala/Play hub adopts the scala-play tag. Existing hub blurb still mentions Akka and nextUp still refers to classes/constructors; noted for a separate registry change, not edited or deployed here.
 - Draft only; no publication. Next new article number is 12. Next lesson remains missing syntax import versus missing repository in the combined example.
+
+## Session 26: Missing extension syntax versus missing repository (2026-09-21)
+- Added MissingSyntaxImport.scala and MissingLookupRepository.scala outside src, under examples/implicit-errors; normal compilation excludes them.
+- Verified each in a fresh sbt session with a session-only unmanagedSources addition on Scala 2.13.18.
+- MissingSyntaxImport has an implicit repository but no syntax import: compiler reports "value lookup is not a member of String".
+- MissingLookupRepository imports the syntax but has an ordinary val store: compiler reports "could not find implicit value for parameter repository: learning.PolicyRepository".
+- Extended ImplicitClassLesson with separate-method repairs: explicitly construct the wrapper while inferring its repository, or use extension syntax while passing an ordinary repository explicitly.
+- Both repairs return Some(PolicySnapshot(POL-001,600,3)); sbt "runMain learning.PremiumLesson" passed all new and existing assertions.
+- Distinguished both compilation failures from a valid repository lookup returning None at runtime. Java comparison: unknown method versus missing method argument; not Spring runtime container resolution.
+- Updated the compiler-example instructions and README lesson index (step 16). No build settings or dependencies changed.
+- Status: introduced and assistant-verified only. No learner exercise or independently demonstrated mastery claimed.
+- Synced main with origin/main before edits. Preserved the learner's uncommitted claimFreeYears = 3 practice edit, excluded from the lesson commit.
+- Next: Either, retaining a failure reason where Option only expresses absence; part of the existing everyday-functional-Scala roadmap. Do not introduce type classes or deeper implicit precedence yet.
+- Blog: useful follow-up material for existing Part 11, not enough distinct material for Part 12. No blog state checked, draft edited, article created or publication performed. Verify live state before a future blog action; next new article number remains 12.

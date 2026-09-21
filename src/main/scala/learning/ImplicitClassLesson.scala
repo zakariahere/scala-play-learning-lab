@@ -14,6 +14,26 @@ object PolicyNumberSyntax {
 }
 
 object ImplicitClassLesson {
+  // Separate method bodies keep each example's imports and values local.
+  def withoutSyntaxImport(): Option[PolicySnapshot] = {
+    implicit val store: PolicyRepository =
+      new InMemoryPolicyRepository(List(PolicySnapshot("POL-001", 600, 3)))
+
+    // No syntax import: construct the wrapper ourselves.
+    // The method's repository argument can still be inferred.
+    new PolicyNumberSyntax.PolicyNumberOps("POL-001").lookup
+  }
+
+  def withoutImplicitRepository(): Option[PolicySnapshot] = {
+    import PolicyNumberSyntax._
+    val store: PolicyRepository =
+      new InMemoryPolicyRepository(List(PolicySnapshot("POL-001", 600, 3)))
+
+    // Automatic wrapper conversion, but an explicitly supplied argument.
+    // store does not have to be implicit when we pass it ourselves.
+    "POL-001".lookup(store)
+  }
+
   def run(): Unit = {
     println("--- Implicit classes: extension-style methods ---")
 
@@ -65,5 +85,13 @@ object ImplicitClassLesson {
     assert(inferredRepository == fullyExplicit)
     assert(missing == None)
     assert(explicitlyEmpty == None)
+
+    println("--- Missing syntax versus missing implicit argument: repairs ---")
+    val explicitWrapperRepair = withoutSyntaxImport()
+    val explicitArgumentRepair = withoutImplicitRepository()
+    println("No syntax import, explicit wrapper: " + explicitWrapperRepair)
+    println("Ordinary repository, explicit argument: " + explicitArgumentRepair)
+    assert(explicitWrapperRepair == Some(policy))
+    assert(explicitArgumentRepair == Some(policy))
   }
 }

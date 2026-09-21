@@ -42,12 +42,13 @@ For a faster edit/run loop, start `sbt` once, enter `runMain learning.PremiumLes
 | 13 | Missing and ambiguous implicit arguments: compiler diagnostics and explicit fixes | [ImplicitSearchLesson.scala](src/main/scala/learning/ImplicitSearchLesson.scala), [compiler examples and instructions](examples/implicit-errors/lesson.md) |
 | 14 | Implicit classes: ordinary wrappers, extension-style methods and the required import | [ImplicitClassLesson.scala](src/main/scala/learning/ImplicitClassLesson.scala) |
 | 15 | Combining an extension method with an implicit parameter: `policyNumber.lookup` | [ImplicitClassLesson.scala](src/main/scala/learning/ImplicitClassLesson.scala) |
+| 16 | Missing syntax import versus missing implicit repository: two compiler errors and independent repairs | [compiler examples and instructions](examples/implicit-errors/lesson.md), [ImplicitClassLesson.scala](src/main/scala/learning/ImplicitClassLesson.scala) |
 
 `PremiumLesson.main` runs the learning examples in order. Each later lesson prints a labelled section; assertions check the expected results. The deliberately failing compiler examples live outside `src/` and are run separately using their linked instructions.
 
 These steps group the runnable material; they are not blog part numbers or a claim of independent mastery. See [progress.md](progress.md) for the detailed session history.
 
-**Resume here:** distinguish a missing syntax import from a missing repository argument in the combined implicit-class example. That comparison is the next lesson, not yet implemented.
+**Resume here:** missing syntax versus missing repository is now demonstrated with real compiler errors and runnable repairs. Next: `Either`, to retain a failure reason where `Option` only represents absence; not yet implemented.
 
 A few results to look for:
 
@@ -136,6 +137,8 @@ progress.md                Covered topics and where to resume
 - [x] Missing and ambiguous implicits: [compiler examples and fixes](examples/implicit-errors/lesson.md)
 - [x] Implicit classes: explicit wrapper calls, extension-style syntax and the required import (`ImplicitClassLesson.scala`)
 - [x] Extension methods with implicit parameters: explicit wrapper, explicit repository and fully inferred calls
+- [x] Missing syntax import versus missing implicit repository: separate diagnostics and runnable repairs
+- [ ] Either: success or a failure reason, starting from the familiar Option lookup
 - [ ] Testing and deeper sbt workflows
 - [ ] Futures and asynchronous error handling
 - [ ] Play routes, controllers, JSON and services
