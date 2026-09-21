@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Implicit classes introduced with a runnable explicit-wrapper/extension-style comparison. Execution proves both calls are equivalent; learner mastery has not yet been assessed. Next: a small learner practice step, then continue the Scala 2 roadmap. Keep type classes and deeper implicit-search precedence for later.
+Learner reports understanding implicit classes after the explicit-wrapper-first explanation. Added a worked example combining an extension method with an implicit repository parameter; all explicit and inferred calls verified. Independent mastery is not yet assessed. Next: demonstrate missing syntax import versus missing repository in this combined example, then resume the wider Scala 2 roadmap. Keep type classes and deeper implicit-search precedence for later.
 
 ## Teaching approach
 
@@ -199,3 +199,15 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - runMain learning.PremiumLesson passed and both forms asserted the exact result Policy POL-001.
 - Status: syntax and mechanism introduced and execution verified by the assistant; learner practice or demonstrated mastery has not yet occurred.
 - Blog: Part 10 already covers the preceding implicit-parameter material. This single lesson is not enough for Part 11, so no draft or publication was created.
+
+## Session 25: Extension method with an implicit parameter (2026-09-21)
+- Learner said "GOT IT" after the expanded wrapper-first explanation. Record self-reported understanding of implicit classes, not independent demonstrated mastery.
+- Teaching preference clarified: do not use llm-teacher. Explain from familiar explicit code, trace concrete values, then introduce the shortcut. Keep housekeeping brief and avoid routine quizzes.
+- Extended PolicyNumberOps with lookup(implicit repository: PolicyRepository): Option[PolicySnapshot] = repository.find(number).
+- Separated the two compiler conveniences: String-to-wrapper conversion makes lookup available; argument insertion supplies the repository to that method.
+- Compared new PolicyNumberSyntax.PolicyNumberOps(policyNumber).lookup(localStore), policyNumber.lookup(localStore), and policyNumber.lookup.
+- Verified exact Some(PolicySnapshot("POL-001", 600, 3)) for all three forms; missing number and explicit empty repository yield None. The wrapper stores the number; the repository is a method argument, not stored in this wrapper.
+- sbt "runMain learning.PremiumLesson" passed all new and existing assertions on Scala 2.13.18. Preserved the learner's uncommitted claimFreeYears = 3 edit.
+- New combined example is introduced and assistant-verified; no learner practice or independent mastery claimed.
+- Blog readiness: enough coherent material to propose Part 11, "Scala 2 Implicit Classes: Where Did That Method Come From?" Scope: Java wrapper equivalent, extension syntax/import, compiler conversion, and combining an extension with an implicit repository argument. Next lesson's two missing-input diagnostics would strengthen it.
+- Suggested only: no blog draft or publication. Last recorded Part 10 draft is 1f26a27c-fd2c-4e6f-b6dd-e382d0b1285d; live blog state must be verified before any article creation. Preserve Part 8 sbt, Part 9 traits, Part 10 implicit parameters, Part 11 next.
