@@ -120,6 +120,7 @@ progress.md                Covered topics and where to resume
 - [x] Traits: `PolicyRepository` contract, in-memory implementation and calling through the trait
 - [x] Concrete trait methods: inherited `exists` reuses the implemented `find`
 - [x] Multiple parameter lists: `describe(number)(repository)` with explicit arguments
+- [x] Implicit parameters: compiler-supplied repository arguments and explicit alternatives
 - [ ] Testing and deeper sbt workflows
 - [ ] Futures and asynchronous error handling
 - [ ] Play routes, controllers, JSON and services

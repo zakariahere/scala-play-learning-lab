@@ -1,6 +1,6 @@
 # Learning progress
 
-Updated: 2026-09-20
+Updated: 2026-09-21
 
 ## Covered with runnable examples
 
@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Multiple parameter lists introduced with describe(number)(repository), both arguments explicit. Next: implicit parameters using the same PolicyRepository, show explicit and compiler-supplied calls side by side, then missing/ambiguous candidates. Implicit classes afterwards.
+Implicit parameters introduced with describe(number)(implicit repository) and local implicit val localStore. Next: missing and ambiguous implicit candidates with actual compiler diagnostics, then implicit classes. Keep the same repository example.
 
 ## Teaching approach
 
@@ -169,3 +169,13 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - runMain learning.PremiumLesson passed: same found result for both signatures, missing result and explicit empty repository.
 - Next: implicit parameter list and an implicit val; explain compile-time argument insertion using the same example. Defer partial application and currying terminology.
 - Blog numbering: user-written sbt article is Part 8; traits is Part 9 (saved as draft in prior session). Next new article is Part 10. Accumulate implicit-parameter material before suggesting it.
+
+
+## Session 22: Implicit parameters (2026-09-21)
+- Added ImplicitParameterLesson with implicit PolicyRepository parameter list and ordinary method body.
+- localStore is an implicit val; name intentionally differs from repository to show this is type-directed argument search.
+- Compared describe(number)(localStore) with describe(number); explicit emptyStore still selects a different repository.
+- Explained compile-time argument insertion, distinct from runtime Spring container lookup. Ordinary val alone is not an implicit candidate.
+- runMain learning.PremiumLesson passed: explicit/inferred found results, missing policy, explicit empty repository; prior assertions also passed.
+- Next: demonstrate missing/ambiguous candidates using compiler diagnostics before implicit classes. Do not equate a missing policy with a missing implicit dependency.
+- Blog: accumulate search/error material before suggesting Part 10; Part 8 is the user's sbt article and Part 9 is traits.

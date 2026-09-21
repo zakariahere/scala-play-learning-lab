@@ -48,6 +48,7 @@ object PremiumLesson {
     ListComprehensionLesson.run()
     TraitLesson.run()
     ParameterListsLesson.run()
+    ImplicitParameterLesson.run()
   }
 
   // Parameters have name: Type syntax; the Int after ')' is the result type.
