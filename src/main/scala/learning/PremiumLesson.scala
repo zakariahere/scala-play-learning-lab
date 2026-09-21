@@ -50,6 +50,7 @@ object PremiumLesson {
     ParameterListsLesson.run()
     ImplicitParameterLesson.run()
     ImplicitSearchLesson.run()
+    ImplicitClassLesson.run()
   }
 
   // Parameters have name: Type syntax; the Int after ')' is the result type.

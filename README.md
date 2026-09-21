@@ -65,6 +65,7 @@ Try changing `claimFreeYears` in `PremiumLesson.main` from `2` to `3`. The first
 | `equals` versus reference `==` | Scala `==` uses null-safe equality; `eq` compares reference identity |
 | Data classes with generated methods | A case class provides equality, `toString` and shallow `copy` |
 | `Optional<T>` | `Option[T]`, with `Some(value)` and `None` |
+| A wrapper or static helper method | An imported implicit class can provide extension-style syntax |
 
 Scala 2 still permits null. `Option` makes intended absence explicit; it does not ban null throughout a program.
 
@@ -122,6 +123,7 @@ progress.md                Covered topics and where to resume
 - [x] Multiple parameter lists: `describe(number)(repository)` with explicit arguments
 - [x] Implicit parameters: compiler-supplied repository arguments and explicit alternatives
 - [x] Missing and ambiguous implicits: [compiler examples and fixes](examples/implicit-errors/lesson.md)
+- [x] Implicit classes: explicit wrapper calls, extension-style syntax and the required import (`ImplicitClassLesson.scala`)
 - [ ] Testing and deeper sbt workflows
 - [ ] Futures and asynchronous error handling
 - [ ] Play routes, controllers, JSON and services

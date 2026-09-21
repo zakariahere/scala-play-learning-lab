@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Missing and ambiguous implicit candidates demonstrated with real Scala 2.13.18 compiler diagnostics; explicit fixes run. Next: implicit classes to explain extension-style methods, with explicit wrapper equivalent and required import. Keep type classes and deeper search precedence for later.
+Implicit classes introduced with a runnable explicit-wrapper/extension-style comparison. Execution proves both calls are equivalent; learner mastery has not yet been assessed. Next: a small learner practice step, then continue the Scala 2 roadmap. Keep type classes and deeper implicit-search precedence for later.
 
 ## Teaching approach
 
@@ -189,3 +189,13 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Both expected compilation failures verified; subsequent normal runMain learning.PremiumLesson passed all assertions. sbt set modifications were session-only; build.sbt unchanged.
 - Windows launcher stripped quotes from initial command-line set; documented sbt interactive commands instead, which were verified via standard input.
 - Next: implicit classes. Part 10 now worth suggesting: Scala 2 Implicit Parameters - What the Compiler Supplies, and Why It Refuses. No draft or publication in this lesson.
+
+## Session 24: Implicit classes (2026-09-21)
+- Added PolicyNumberSyntax.PolicyNumberOps, an implicit class wrapping one String and defining asPolicyLabel.
+- Demonstrated the ordinary equivalent first: new PolicyNumberSyntax.PolicyNumberOps(policyNumber).asPolicyLabel.
+- Imported PolicyNumberSyntax._ before the extension-style policyNumber.asPolicyLabel call; the import makes the implicit wrapper conversion eligible in that lexical scope.
+- Explained the Scala 2 compiler rewrite as wrapper construction followed by the same method call. The original String class is not modified.
+- Java comparison: an explicit wrapper or static utility remains visible in Java; Scala 2 can offer fluent call syntax through an imported implicit conversion.
+- runMain learning.PremiumLesson passed and both forms asserted the exact result Policy POL-001.
+- Status: syntax and mechanism introduced and execution verified by the assistant; learner practice or demonstrated mastery has not yet occurred.
+- Blog: Part 10 already covers the preceding implicit-parameter material. This single lesson is not enough for Part 11, so no draft or publication was created.
