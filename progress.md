@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Introduced an Either for-comprehension over the existing policy/contact chain, beside its flatMap/map equivalent. policy is a PolicySnapshot, email is a String, and yield builds a plain String inside an Either[String, String]. Verified the success label and both distinct Left reasons with six assertions; examples are assistant-verified, not independent learner mastery. The planned Either article scope is now complete and worth proposing; live blog state and numbering must be verified before drafting. Next language lesson: Try basics, wrapping an operation that can throw, with Success/Failure and a Java try/catch comparison. Defer recovery/composition, typed error hierarchies, type classes and deeper implicit-search precedence.
+Introduced an Either for-comprehension over the existing policy/contact chain, beside its flatMap/map equivalent. policy is a PolicySnapshot, email is a String, and yield builds a plain String inside an Either[String, String]. Verified the success label and both distinct Left reasons with six assertions; examples are assistant-verified, not independent learner mastery. Scala/Play Part 12 on Either is now saved and verified as draft 510945ab-bcc0-41a4-bb51-dd840f19957b; no publication. Part 11 was verified published. Next new article number is 13, subject to live verification; update the existing Part 12 draft rather than duplicating it. Next language lesson: Try basics, wrapping an operation that can throw, with Success/Failure and a Java try/catch comparison. Defer recovery/composition, typed error hierarchies, type classes and deeper implicit-search precedence.
 
 ## Teaching approach
 
@@ -289,3 +289,15 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Status: introduced and assistant-verified, not independently practiced or mastered by the learner.
 - Next language lesson: Try basics, Success/Failure and a Java try/catch comparison for a throwing operation. Defer recovery/composition and typed error hierarchies.
 - Blog readiness: the planned Either scope is now complete: motivation, Left/Right, match, map, flatMap, distinct failure reasons and equivalent for-comprehension. Worth proposing "Scala Either for Java Developers: A Result or a Reason", provisionally Part 12 pending live-state verification. No live blog read, draft creation/edit or publication this turn; verify existing posts and numbering before any drafting action.
+
+## Scala/Play Part 12 blog draft (2026-09-22)
+- User invoked blog-article with zakaria-mascot. Verified Part 11 published and no existing Either/Part 12 article before creation.
+- Saved and read back draft 510945ab-bcc0-41a4-bb51-dd840f19957b: "Scala/Play, Part 12: Scala Either for Java Developers - A Result or a Reason".
+- Slug: scala-play-part-12-scala-either-for-java-developers-a-result-or-a-reason. Review at https://zakaria.lu/#blog-admin; public URL returns 404 while draft. Update this ID rather than POSTing another copy.
+- Explains Left/Right, match, map, nested Either, flatMap and equivalent for-comprehensions using verified methods from source commit da4cdcb. Distinct failure reasons and the direct POL-002 fixture are explicit.
+- 811 words of prose plus 14 code/output blocks. Linked the Scala 2.13.18 API reference and pinned runnable source. Re-ran the full lab successfully.
+- Reviewed Systems in Motion cover, fresh canonical mascot parcel-depot illustration, map/flatMap diagram and for-comprehension translation diagram. Desktop/mobile preview checked; corrected the second diagram height before uploading.
+- Readback verified draft status, complete text and all 14 code blocks unchanged. All four exact reviewed media uploads return HTTP 200 image/png.
+- Local deliverables: C:/Users/Zakaria/Documents/Codex/2026-09-21/referenced-chatgpt-conversation-this-is-an/outputs/scala-play-12 (preview, payload, readback, graphics and generation prompt).
+- The existing Scala/Play hub adopts scala-play tags. Registry and live hub still contain stale Akka wording and classes/constructors nextUp; no registry edit or deployment performed.
+- No publication. Next new article is Part 13, subject to fresh verification. Next lesson remains Try basics; no additional mastery claim. Preserved uncommitted practice code.
