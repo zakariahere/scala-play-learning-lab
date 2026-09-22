@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Introduced Either.map beside an explicit match: transform Right(policy) into Right(policy.number), preserve Left(reason), and skip the transformation on Left. The result changes from Either[String, PolicySnapshot] to Either[String, String]; the original policy result is unchanged. Examples and assertions are assistant-verified; learner practice and independent mastery are not yet assessed. Next: Either.flatMap, chaining a second operation that returns Either and comparing it with nested Either from map. Defer for-comprehensions until that is clear, and keep typed error hierarchies, Try, type classes and deeper implicit-search precedence for later.
+Introduced Either.flatMap for a second fallible contact-email lookup, compared with an explicit match and nested Either from map. Verified success, existing policy without email (direct POL-002 fixture), and missing policy; failure reasons remain distinct and an initial Left skips the next callback. Examples and assertions are assistant-verified; learner practice and independent mastery are not yet assessed. Next: express this same policy/contact chain with an Either for-comprehension, showing its flatMap/map translation and a plain String yield result. Keep typed error hierarchies, Try, type classes and deeper implicit-search precedence for later.
 
 ## Teaching approach
 
@@ -262,3 +262,16 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Status: introduced and assistant-verified only; no independent learner practice or mastery claimed.
 - Next: Either.flatMap, using a second operation that returns Either; compare with nested Either from map before introducing a for-comprehension.
 - Blog plan discussed with learner: Part 12 working title "Scala Either for Java Developers: A Result or a Reason", building from motivation through map, flatMap and a for-comprehension. Accumulate the composition examples first; no article created or edited and no live blog state checked this turn. Verify state and numbering before drafting.
+
+## Session 29: Either.flatMap - chain a second fallible lookup (2026-09-22)
+- Added findContactEmail returning Either[String, String], with the same fictional contact data as the earlier Option lesson: POL-001 has customer@example.com; other supplied policies have no contact email.
+- Added emailWithMap, emailWithMatch and emailWithFlatMap. The explicit match returns the second lookup's Either directly on Right and preserves the first failure on Left.
+- Compared map's Either[String, Either[String, String]] with flatMap's Either[String, String]. map wraps the callback's entire result in Right; flatMap uses that returned Either without another wrapper.
+- Verified all three scenarios: Right(Right(email)) versus Right(email); Right(Left(contact reason)) versus Left(contact reason); initial Left(policy reason) preserved by both.
+- POL-002 is explicitly a direct Right(PolicySnapshot(...)) fixture for an existing policy without email, not an invented result of the existing findPolicy method, which still only finds POL-001.
+- Asserted the exact six outputs and match/flatMap equivalence in all three cases. A guard assertion in the initial Left.flatMap callback verified that the contact lookup is skipped.
+- sbt "runMain learning.PremiumLesson" passed all existing and new assertions. Updated README lesson index through step 19 and the resume point.
+- Synced main before edits; preserved and excluded the learner's uncommitted claimFreeYears = 3 edit. No dependency or build-setting changes.
+- Status: introduced and assistant-verified only; no learner exercise or independent mastery claimed.
+- Next: Either for-comprehension over this same policy/contact chain, compared with flatMap/map; yield a display label. Do not add typed errors or Try in that lesson.
+- Blog: the Either material now has a coherent practical core (motivation, match, map, flatMap, distinct failure reasons). The planned for-comprehension comparison will complete the proposed Part 12 scope. No article action this turn; verify live state and numbering before offering or preparing the draft.
