@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Introduced Either.flatMap for a second fallible contact-email lookup, compared with an explicit match and nested Either from map. Verified success, existing policy without email (direct POL-002 fixture), and missing policy; failure reasons remain distinct and an initial Left skips the next callback. Examples and assertions are assistant-verified; learner practice and independent mastery are not yet assessed. Next: express this same policy/contact chain with an Either for-comprehension, showing its flatMap/map translation and a plain String yield result. Keep typed error hierarchies, Try, type classes and deeper implicit-search precedence for later.
+Introduced an Either for-comprehension over the existing policy/contact chain, beside its flatMap/map equivalent. policy is a PolicySnapshot, email is a String, and yield builds a plain String inside an Either[String, String]. Verified the success label and both distinct Left reasons with six assertions; examples are assistant-verified, not independent learner mastery. The planned Either article scope is now complete and worth proposing; live blog state and numbering must be verified before drafting. Next language lesson: Try basics, wrapping an operation that can throw, with Success/Failure and a Java try/catch comparison. Defer recovery/composition, typed error hierarchies, type classes and deeper implicit-search precedence.
 
 ## Teaching approach
 
@@ -275,3 +275,17 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Status: introduced and assistant-verified only; no learner exercise or independent mastery claimed.
 - Next: Either for-comprehension over this same policy/contact chain, compared with flatMap/map; yield a display label. Do not add typed errors or Try in that lesson.
 - Blog: the Either material now has a coherent practical core (motivation, match, map, flatMap, distinct failure reasons). The planned for-comprehension comparison will complete the proposed Part 12 scope. No article action this turn; verify live state and numbering before offering or preparing the draft.
+
+## Session 30: Either for-comprehension - the same chain in readable syntax (2026-09-22)
+- Added contactLabelWithMethods and contactLabelWithFor to EitherLesson, reusing the same policy and contact-email results.
+- Explained the two generators: policy <- result binds a PolicySnapshot on Right; email <- findContactEmail(policy) binds a String on Right and depends on the first bound value.
+- yield builds the plain String policy.number + " -> " + email. The whole expression returns Either[String, String], not a plain String or nested Either.
+- Showed the corresponding outer flatMap and inner map with typed lambdas, matching the earlier Option for-comprehension lesson.
+- An initial Left skips the contact lookup and yield; a Left from the contact lookup skips yield and remains the result. No exception catching, loops over a collection, guards or asynchronous work introduced.
+- Verified six assertions: exact successful label Right(POL-001 -> customer@example.com), exact contact/policy Left reasons, and equivalence of both implementations for all three scenarios.
+- POL-002 remains the explicit existing-policy fixture from Session 29; did not change findPolicy or invent additional repository data.
+- sbt "runMain learning.PremiumLesson" passed all existing and new assertions. Updated README through step 20 and both resume points.
+- Synced main before edits and left the learner's claimFreeYears = 3 practice change untouched and outside the focused lesson commit.
+- Status: introduced and assistant-verified, not independently practiced or mastered by the learner.
+- Next language lesson: Try basics, Success/Failure and a Java try/catch comparison for a throwing operation. Defer recovery/composition and typed error hierarchies.
+- Blog readiness: the planned Either scope is now complete: motivation, Left/Right, match, map, flatMap, distinct failure reasons and equivalent for-comprehension. Worth proposing "Scala Either for Java Developers: A Result or a Reason", provisionally Part 12 pending live-state verification. No live blog read, draft creation/edit or publication this turn; verify existing posts and numbering before any drafting action.

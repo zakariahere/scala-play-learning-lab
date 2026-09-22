@@ -68,6 +68,29 @@ object EitherLesson {
     result.flatMap((policy: PolicySnapshot) => findContactEmail(policy))
   }
 
+  def contactLabelWithMethods(
+      result: Either[String, PolicySnapshot]
+  ): Either[String, String] = {
+    result.flatMap((policy: PolicySnapshot) => {
+      findContactEmail(policy).map((email: String) => {
+        policy.number + " -> " + email
+      })
+    })
+  }
+
+  def contactLabelWithFor(
+      result: Either[String, PolicySnapshot]
+  ): Either[String, String] = {
+    for {
+      // On Right, policy is a PolicySnapshot, not an Either.
+      policy <- result
+      // This dependent lookup runs only after the first Right.
+      email <- findContactEmail(policy)
+    } yield policy.number + " -> " + email
+    // yield produces a plain String; the final map wraps it in Right.
+    // A Left at either step preserves that reason and skips yield.
+  }
+
   def run(): Unit = {
     println("--- Either: a policy or a failure reason ---")
     val found: Either[String, PolicySnapshot] = findPolicy("POL-001")
@@ -151,5 +174,23 @@ object EitherLesson {
         findContactEmail(policy)
       })
     assert(skippedContactLookup == flatMissing)
+
+    println("--- Either for-comprehension: the same flatMap/map chain ---")
+    val labelWithMethods = contactLabelWithMethods(found)
+    val labelWithFor = contactLabelWithFor(found)
+    val noEmailLabel = contactLabelWithFor(noEmail)
+    val noPolicyLabel = contactLabelWithFor(missing)
+
+    println("Methods, both found: " + labelWithMethods)
+    println("For, both found: " + labelWithFor)
+    println("For, no email: " + noEmailLabel)
+    println("For, no policy: " + noPolicyLabel)
+
+    assert(labelWithMethods == Right("POL-001 -> customer@example.com"))
+    assert(labelWithFor == labelWithMethods)
+    assert(noEmailLabel == Left("Contact email not found: POL-002"))
+    assert(noPolicyLabel == Left("Policy not found: POL-999"))
+    assert(contactLabelWithMethods(noEmail) == noEmailLabel)
+    assert(contactLabelWithMethods(missing) == noPolicyLabel)
   }
 }
