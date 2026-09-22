@@ -44,12 +44,13 @@ For a faster edit/run loop, start `sbt` once, enter `runMain learning.PremiumLes
 | 15 | Combining an extension method with an implicit parameter: `policyNumber.lookup` | [ImplicitClassLesson.scala](src/main/scala/learning/ImplicitClassLesson.scala) |
 | 16 | Missing syntax import versus missing implicit repository: two compiler errors and independent repairs | [compiler examples and instructions](examples/implicit-errors/lesson.md), [ImplicitClassLesson.scala](src/main/scala/learning/ImplicitClassLesson.scala) |
 | 17 | Either: Left carries a failure reason, Right carries a policy; consume both with match | [EitherLesson.scala](src/main/scala/learning/EitherLesson.scala) |
+| 18 | Either.map: transform Right, preserve Left; compare with explicit match | [EitherLesson.scala](src/main/scala/learning/EitherLesson.scala) |
 
 `PremiumLesson.main` runs the learning examples in order. Each later lesson prints a labelled section; assertions check the expected results. The deliberately failing compiler examples live outside `src/` and are run separately using their linked instructions.
 
 These steps group the runnable material; they are not blog part numbers or a claim of independent mastery. See [progress.md](progress.md) for the detailed session history.
 
-**Resume here:** `Either[String, PolicySnapshot]`, `Left`, `Right` and handling both cases with `match` are introduced and verified. Next: `Either.map`, transforming a successful value while preserving a failure reason; not yet implemented.
+**Resume here:** `Either.map` and its explicit `match` equivalent are introduced and verified, including the skipped transformation on `Left`. Next: `Either.flatMap`, chaining a second operation that itself returns `Either`; not yet implemented.
 
 A few results to look for:
 
@@ -140,7 +141,8 @@ progress.md                Covered topics and where to resume
 - [x] Extension methods with implicit parameters: explicit wrapper, explicit repository and fully inferred calls
 - [x] Missing syntax import versus missing implicit repository: separate diagnostics and runnable repairs
 - [x] Either: success or a failure reason, starting from the familiar Option lookup and using match
-- [ ] Either.map: transform success while preserving the failure
+- [x] Either.map: transform success while preserving the failure, compared with match
+- [ ] Either.flatMap: chain another operation that can return a failure
 - [ ] Testing and deeper sbt workflows
 - [ ] Futures and asynchronous error handling
 - [ ] Play routes, controllers, JSON and services

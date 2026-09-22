@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Introduced Either[String, PolicySnapshot]: Left carries a failure reason, Right carries a successful policy, and match handles both cases. Reused the existing Option lookup and explicitly chose a message for None; no exceptions are thrown or automatically caught by Either. New code and four assertions are assistant-verified; learner practice and independent mastery are not yet assessed. Next: Either.map, transforming a successful policy while preserving a Left reason, compared with explicit match. Defer flatMap/composition, typed error hierarchies, Try, type classes and deeper implicit-search precedence.
+Introduced Either.map beside an explicit match: transform Right(policy) into Right(policy.number), preserve Left(reason), and skip the transformation on Left. The result changes from Either[String, PolicySnapshot] to Either[String, String]; the original policy result is unchanged. Examples and assertions are assistant-verified; learner practice and independent mastery are not yet assessed. Next: Either.flatMap, chaining a second operation that returns Either and comparing it with nested Either from map. Defer for-comprehensions until that is clear, and keep typed error hierarchies, Try, type classes and deeper implicit-search precedence for later.
 
 ## Teaching approach
 
@@ -249,3 +249,16 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Status: introduced and assistant-verified, not independently practiced or mastered by the learner.
 - Next: Either.map, with an explicit match equivalent, transforming the Right policy into its number while preserving Left. No composition, Try or typed error hierarchy yet.
 - Blog: beginning a new coherent error-modelling topic; this first Either lesson alone is too thin for Part 12. Accumulate transformation/composition examples before suggesting an article. No blog reads, drafts or publication this turn; verify live blog state and numbering before any future article action.
+
+## Session 28: Either.map - transform success, preserve failure (2026-09-22)
+- Added policyNumberWithMatch and policyNumberWithMap to EitherLesson, each taking Either[String, PolicySnapshot] and returning Either[String, String].
+- Explained the explicit branches first: Right(policy) becomes Right(policy.number); Left(reason) retains the same reason.
+- The typed lambda (policy: PolicySnapshot) => policy.number returns a plain String, not Right(String). map handles the Right wrapping.
+- Explained right-biased map in Scala 2.13: it transforms Right, not Left, even when both payload types are String. Compared with familiar Option.map and Java Optional.map.
+- Verified match/map equivalence for both cases: Right(POL-001) and Left(Policy not found: POL-999). Asserted the original successful result still contains its unchanged PolicySnapshot.
+- Added a guard assertion inside a Left.map callback; the full run succeeds, confirming the callback is skipped. The final result retains the original failure reason.
+- sbt "runMain learning.PremiumLesson" passed all existing and new assertions. Updated README step 18 and resume point.
+- Synced main with origin/main before editing. The learner's uncommitted claimFreeYears = 3 practice edit remains untouched and excluded from this lesson commit.
+- Status: introduced and assistant-verified only; no independent learner practice or mastery claimed.
+- Next: Either.flatMap, using a second operation that returns Either; compare with nested Either from map before introducing a for-comprehension.
+- Blog plan discussed with learner: Part 12 working title "Scala Either for Java Developers: A Result or a Reason", building from motivation through map, flatMap and a for-comprehension. Accumulate the composition examples first; no article created or edited and no live blog state checked this turn. Verify state and numbering before drafting.
