@@ -1,6 +1,6 @@
 # Learning progress
 
-Updated: 2026-09-21
+Updated: 2026-09-22
 
 ## Covered with runnable examples
 
@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Learner previously reported understanding implicit classes after the explicit-wrapper-first explanation. Missing syntax import versus missing implicit repository is now demonstrated with two verified compiler failures and separate runnable repairs. These diagnostics and repairs are introduced and assistant-verified; learner practice and independent mastery are not yet assessed. Next: Either, starting from the familiar Option lookup and retaining a failure reason instead of only absence. Keep type classes and deeper implicit-search precedence for later.
+Introduced Either[String, PolicySnapshot]: Left carries a failure reason, Right carries a successful policy, and match handles both cases. Reused the existing Option lookup and explicitly chose a message for None; no exceptions are thrown or automatically caught by Either. New code and four assertions are assistant-verified; learner practice and independent mastery are not yet assessed. Next: Either.map, transforming a successful policy while preserving a Left reason, compared with explicit match. Defer flatMap/composition, typed error hierarchies, Try, type classes and deeper implicit-search precedence.
 
 ## Teaching approach
 
@@ -235,3 +235,17 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Synced main with origin/main before edits. Preserved the learner's uncommitted claimFreeYears = 3 practice edit, excluded from the lesson commit.
 - Next: Either, retaining a failure reason where Option only expresses absence; part of the existing everyday-functional-Scala roadmap. Do not introduce type classes or deeper implicit precedence yet.
 - Blog: useful follow-up material for existing Part 11, not enough distinct material for Part 12. No blog state checked, draft edited, article created or publication performed. Verify live state before a future blog action; next new article number remains 12.
+
+## Session 27: Either basics - a policy or a failure reason (2026-09-22)
+- Added EitherLesson.findPolicy returning Either[String, PolicySnapshot], reusing OptionLesson.findPolicy through an explicit match.
+- Explained the two type arguments in order: Left payload String, Right payload PolicySnapshot; one alternative per result, not both.
+- Followed the conventional Left = failure and Right = success interpretation. Either is general-purpose; its left type need not be an exception.
+- Some(policy) becomes Right(policy); None becomes Left("Policy not found: " + number). This message is explicitly chosen by our code, not recovered from hidden information inside None.
+- Added describePolicy with Right(policy)/Left(reason) patterns; bindings have types PolicySnapshot/String, and each branch returns String.
+- Compared Option's None with Left(Policy not found: POL-999). Found case is Right(PolicySnapshot(POL-001,600,3)).
+- Left is ordinary returned data, not throw; Either does not automatically catch exceptions. Option remains suitable where absence needs no reason.
+- Ran sbt "runMain learning.PremiumLesson" successfully on Scala 2.13.18; all four new assertions and existing assertions passed.
+- Added the run invocation and README lesson step 17. Synced main first; retained the learner's claimFreeYears = 3 edit separately from the lesson changes.
+- Status: introduced and assistant-verified, not independently practiced or mastered by the learner.
+- Next: Either.map, with an explicit match equivalent, transforming the Right policy into its number while preserving Left. No composition, Try or typed error hierarchy yet.
+- Blog: beginning a new coherent error-modelling topic; this first Either lesson alone is too thin for Part 12. Accumulate transformation/composition examples before suggesting an article. No blog reads, drafts or publication this turn; verify live blog state and numbering before any future article action.
