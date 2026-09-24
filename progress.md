@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Introduced Try.recover beside its explicit match equivalent. Explained the typed exception pattern before using it: a NumberFormatException gets a display fallback, Success is unchanged and an unmatched ArithmeticException stays a Failure. Nine assertions verify these outcomes, match equivalence, the unchanged original failure and skipped handlers; introduced and assistant-verified only, not independent learner mastery. Next: Try.recoverWith, when the selected fallback operation already returns Try. Part 12 was last verified as draft 510945ab-bcc0-41a4-bb51-dd840f19957b on 2026-09-22; live status not rechecked. Next new article number is provisionally 13, subject to verification. Keep typed error hierarchies, type classes and deeper implicit-search precedence for later.
+Introduced Try.recover beside its explicit match equivalent. Explained the typed exception pattern before using it: a NumberFormatException gets a display fallback, Success is unchanged and an unmatched ArithmeticException stays a Failure. Nine assertions verify these outcomes, match equivalence, the unchanged original failure and skipped handlers; introduced and assistant-verified only, not independent learner mastery. Next: Try.recoverWith, when the selected fallback operation already returns Try. On 2026-09-24, verified Part 12 published and saved Part 13 as draft 3a04344a-0bf7-4656-8ea5-54972cee5e42; update that draft rather than creating a duplicate. Next new article number is provisionally 14, subject to fresh verification. Keep typed error hierarchies, type classes and deeper implicit-search precedence for later.
 
 ## Teaching approach
 
@@ -367,3 +367,15 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Status: introduced and assistant-verified only; no independent learner practice or mastery claimed.
 - Next: Try.recoverWith, selecting a fallback operation that already returns Try. Not implemented or taught in this lesson.
 - Blog readiness: sufficient coherent material to propose "Scala Try for Java Developers: Capture, Compose and Recover" covering exception boundaries, map/flatMap, for-comprehensions and targeted recovery. recoverWith can add a short companion comparison but is not required to justify an article. No blog action or live state check; verify existing posts and provisional Part 13 numbering first.
+
+## Scala/Play Part 13 blog draft (2026-09-24)
+- User invoked blog-article with zakaria-mascot. Verified Part 12 is published and no existing Try/Part 13 article before creation.
+- Saved draft 3a04344a-0bf7-4656-8ea5-54972cee5e42: "Scala/Play, Part 13: Scala Try for Java Developers - Capture, Compose and Recover".
+- Slug: scala-play-part-13-scala-try-for-java-developers-capture-compose-and-recover. Review at https://zakaria.lu/#blog-admin. Update this ID rather than creating another draft.
+- Covers completed Try lessons only: exception boundary, Success/Failure, explicit match, map, nested Try versus flatMap, for-comprehension translation, and targeted recover. Does not introduce recoverWith or asynchronous behavior.
+- 808 prose words plus 12 code blocks, pinned to runnable TryLesson source commit 9f8061c. Re-ran the full lab successfully with Scala 2.13.18, sbt 1.12.15 and Java 21.0.12.1; no warnings.
+- Used Systems in Motion templates for the cover and two explanatory diagrams. Generated a new canonical mascot railway-switch scene with the built-in image tool and both approved references; identity/style visually reviewed.
+- Desktop and 390px mobile previews checked. All four local images load; no page-width or figure overflow. Admin readback verified draft status, full text and all 12 code blocks unchanged; all four uploaded PNG assets return HTTP 200 image/png.
+- Local deliverables: C:/Users/Zakaria/Documents/Codex/2026-09-21/referenced-chatgpt-conversation-this-is-an/outputs/scala-play-13 (preview, payload, readback, source templates, images, prompt and draft details).
+- Target hub: Scala/Play, which adopts scala-play tags. Registry and live hub still have stale Akka wording and classes/constructors nextUp; no site edits or deployment authorized or performed.
+- No publication and no new learner mastery claim. Next lesson remains recoverWith; next new article number is provisionally 14, requiring fresh live verification. Preserved uncommitted practice code.
