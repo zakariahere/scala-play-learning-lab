@@ -52,6 +52,7 @@ object PremiumLesson {
     ImplicitSearchLesson.run()
     ImplicitClassLesson.run()
     EitherLesson.run()
+    TryLesson.run()
   }
 
   // Parameters have name: Type syntax; the Int after ')' is the result type.

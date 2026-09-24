@@ -7,7 +7,7 @@
 
 A hands-on learning journey through Scala, sbt and eventually Play. Small insurance-policy examples connect familiar Java concepts to Scala's expressions, data modelling and optional values.
 
-**Current stage:** Scala 2 language essentials through traits, implicit parameters and implicit classes; now introducing `Either` for a success value or failure reason. Play 3 and Apache Pekko are future topics, not installed dependencies. All policy data and pricing rules are fictional.
+**Current stage:** Scala 2 language essentials through traits, implicits and `Either` composition; now introducing `Try` for a value or a captured non-fatal exception. Play 3 and Apache Pekko are future topics, not installed dependencies. All policy data and pricing rules are fictional.
 
 ## Run the lab
 
@@ -47,12 +47,13 @@ For a faster edit/run loop, start `sbt` once, enter `runMain learning.PremiumLes
 | 18 | Either.map: transform Right, preserve Left; compare with explicit match | [EitherLesson.scala](src/main/scala/learning/EitherLesson.scala) |
 | 19 | Either.flatMap: chain a fallible contact lookup, compare nested map results and preserve distinct failure reasons | [EitherLesson.scala](src/main/scala/learning/EitherLesson.scala) |
 | 20 | Either for-comprehension: dependent generators, a plain String yield and the equivalent flatMap/map chain | [EitherLesson.scala](src/main/scala/learning/EitherLesson.scala) |
+| 21 | Try basics: capture a throwing conversion as Success or Failure, then handle both with match | [TryLesson.scala](src/main/scala/learning/TryLesson.scala) |
 
 `PremiumLesson.main` runs the learning examples in order. Each later lesson prints a labelled section; assertions check the expected results. The deliberately failing compiler examples live outside `src/` and are run separately using their linked instructions.
 
 These steps group the runnable material; they are not blog part numbers or a claim of independent mastery. See [progress.md](progress.md) for the detailed session history.
 
-**Resume here:** the `Either` for-comprehension and its `flatMap`/`map` equivalent are introduced and verified for all three lookup outcomes. Next language lesson: `Try` basics, for an operation that throws instead of returning an `Either`; not yet implemented.
+**Resume here:** `Try[Int]`, `Success`, `Failure` and handling both with `match` are introduced and verified using a throwing text-to-number conversion. Next: `Try.map`, including what happens if the transformation itself throws; not yet implemented.
 
 A few results to look for:
 
@@ -146,7 +147,8 @@ progress.md                Covered topics and where to resume
 - [x] Either.map: transform success while preserving the failure, compared with match
 - [x] Either.flatMap: chain another operation that can return a failure, preserving its reason
 - [x] Either for-comprehension: express the same chain with generators and yield
-- [ ] Try basics: represent success or a captured non-fatal exception
+- [x] Try basics: represent success or a captured non-fatal exception, then use match
+- [ ] Try.map: transform success and capture a non-fatal exception from the transformation
 - [ ] Testing and deeper sbt workflows
 - [ ] Futures and asynchronous error handling
 - [ ] Play routes, controllers, JSON and services

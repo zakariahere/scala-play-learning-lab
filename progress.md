@@ -1,6 +1,6 @@
 # Learning progress
 
-Updated: 2026-09-22
+Updated: 2026-09-24
 
 ## Covered with runnable examples
 
@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Introduced an Either for-comprehension over the existing policy/contact chain, beside its flatMap/map equivalent. policy is a PolicySnapshot, email is a String, and yield builds a plain String inside an Either[String, String]. Verified the success label and both distinct Left reasons with six assertions; examples are assistant-verified, not independent learner mastery. Scala/Play Part 12 on Either is now saved and verified as draft 510945ab-bcc0-41a4-bb51-dd840f19957b; no publication. Part 11 was verified published. Next new article number is 13, subject to live verification; update the existing Part 12 draft rather than duplicating it. Next language lesson: Try basics, wrapping an operation that can throw, with Success/Failure and a Java try/catch comparison. Defer recovery/composition, typed error hierarchies, type classes and deeper implicit-search precedence.
+Introduced Try[Int], Success and Failure around text.toInt, then handled both with match and a Java try/catch comparison. Failure contains the captured Throwable, not a chosen message String. Six assertions and the full lab passed; introduced and assistant-verified only, not independent learner mastery. Next: Try.map, including capture of a non-fatal exception thrown inside its transformation; defer flatMap/recovery until then. Part 12 on Either was last verified as draft 510945ab-bcc0-41a4-bb51-dd840f19957b on 2026-09-22; not rechecked this lesson. Next new article number is provisionally 13, subject to live verification. Keep typed error hierarchies, type classes and deeper implicit-search precedence for later.
 
 ## Teaching approach
 
@@ -301,3 +301,15 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Local deliverables: C:/Users/Zakaria/Documents/Codex/2026-09-21/referenced-chatgpt-conversation-this-is-an/outputs/scala-play-12 (preview, payload, readback, graphics and generation prompt).
 - The existing Scala/Play hub adopts scala-play tags. Registry and live hub still contain stale Akka wording and classes/constructors nextUp; no registry edit or deployment performed.
 - No publication. Next new article is Part 13, subject to fresh verification. Next lesson remains Try basics; no additional mastery claim. Preserved uncommitted practice code.
+
+## Session 31: Try basics - capture a throwing conversion (2026-09-24)
+- Added TryLesson with import scala.util.{Failure, Success, Try}, parsePremium(text): Try[Int] = Try(text.toInt), and describePremium using match.
+- Explained Success as carrying the Int and Failure as carrying the actual Throwable. Compared with familiar Java Integer.parseInt and try/catch; Try captures non-fatal exceptions, not every possible Throwable.
+- Try evaluates the supplied expression at the call, within its exception-handling boundary. It is neither an asynchronous task nor a wrapper that can retroactively catch an earlier failed computation.
+- Verified "600" yields Success(600), "hello" yields Failure(NumberFormatException), and execution continues. The match branches produce "Parsed premium: 600 EUR" or "Cannot parse premium: NumberFormatException".
+- Six assertions also cover empty text, integer overflow and successful parsing of -1. Conversion success is not business validation; assertions avoid relying on JVM exception-message wording.
+- sbt "runMain learning.PremiumLesson" passed all existing and new assertions on Scala 2.13.18, sbt 1.12.15 and the currently selected Eclipse Adoptium Java 21.0.12.1. Did not change the user's JDK configuration.
+- Added TryLesson.run to the entry point and README step 21. Preserved the uncommitted claimFreeYears = 3 change; stage only the new invocation, not the learner's edit.
+- Synced main with origin/main before edits. Status: introduced and assistant-verified; no learner practice or independent mastery claimed.
+- Next: Try.map, transforming Success and capturing a non-fatal exception from the transformation, compared with the earlier Either behavior. No recovery or flatMap lesson yet.
+- Blog: this opening Try lesson alone is too thin for a standalone Part 13. Accumulate relevant transformation/composition or recovery material before proposing a scope. No blog state checked and no article action performed; Part 12's recorded draft status may have changed.
