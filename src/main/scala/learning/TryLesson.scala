@@ -82,6 +82,25 @@ object TryLesson {
     // A Failure at either step skips the remaining dependent work.
   }
 
+  def labelRecoveryWithMatch(result: Try[String]): Try[String] = {
+    result match {
+      case Success(label) => Success(label)
+      // _: NumberFormatException matches that exception type without naming it.
+      // Only the display gets a fallback; we do not invent a premium or payment.
+      case Failure(_: NumberFormatException) => Success("Premium unavailable")
+      case Failure(error) => Failure(error)
+    }
+  }
+
+  def labelWithRecovery(result: Try[String]): Try[String] = {
+    // recover receives the exception inside Failure, not the Failure wrapper.
+    // The handler returns String; recover wraps it in Success.
+    // Success and unmatched failures pass through unchanged.
+    result.recover {
+      case _: NumberFormatException => "Premium unavailable"
+    }
+  }
+
   def run(): Unit = {
     println("--- Try: turn a throwing operation into a result ---")
     val valid: Try[Int] = parsePremium("600")
@@ -216,5 +235,37 @@ object TryLesson {
     assert(failureName(forBadParse) == "NumberFormatException")
     assert(failureName(methodBadDivision) == "ArithmeticException")
     assert(failureName(forBadDivision) == "ArithmeticException")
+
+    println("--- Try.recover: a fallback for one specific exception ---")
+    val unchangedLabel = labelWithRecovery(forLabel)
+    val recoveredLabel = labelWithRecovery(forBadParse)
+    val unhandledCalculation = labelWithRecovery(forBadDivision)
+
+    println("Existing success: " + unchangedLabel)
+    println("Number format fallback: " + recoveredLabel)
+    println("Unmatched arithmetic failure: " + unhandledCalculation)
+    println("Original parse failure remains: " + forBadParse)
+
+    assert(unchangedLabel == Success("600 EUR / 12 = 50 EUR"))
+    assert(recoveredLabel == Success("Premium unavailable"))
+    assert(unhandledCalculation == forBadDivision)
+    assert(labelRecoveryWithMatch(forLabel) == unchangedLabel)
+    assert(labelRecoveryWithMatch(forBadParse) == recoveredLabel)
+    assert(labelRecoveryWithMatch(forBadDivision) == unhandledCalculation)
+    assert(failureName(forBadParse) == "NumberFormatException")
+
+    // Guards verify that success and unrelated failures do not run the handler.
+    val guardedSuccess = forLabel.recover {
+      case _: NumberFormatException =>
+        assert(false, "recover must not run on Success")
+        "Unexpected fallback"
+    }
+    val guardedOtherFailure = forBadDivision.recover {
+      case _: NumberFormatException =>
+        assert(false, "recover must not run for an unmatched exception")
+        "Unexpected fallback"
+    }
+    assert(guardedSuccess == forLabel)
+    assert(guardedOtherFailure == forBadDivision)
   }
 }
