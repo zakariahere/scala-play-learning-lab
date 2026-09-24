@@ -42,6 +42,27 @@ object TryLesson {
     }
   }
 
+  // Unlike the earlier map callback, this method already returns Try[Int].
+  def calculateInstallment(premium: Int, installments: Int): Try[Int] = {
+    Try(premium / installments)
+  }
+
+  def installmentWithNestedMap(result: Try[Int], installments: Int): Try[Try[Int]] = {
+    result.map((premium: Int) => calculateInstallment(premium, installments))
+  }
+
+  def installmentResultWithMatch(result: Try[Int], installments: Int): Try[Int] = {
+    result match {
+      // This helper already captures the division: return its Try directly.
+      case Success(premium) => calculateInstallment(premium, installments)
+      case Failure(error) => Failure(error)
+    }
+  }
+
+  def installmentWithFlatMap(result: Try[Int], installments: Int): Try[Int] = {
+    result.flatMap((premium: Int) => calculateInstallment(premium, installments))
+  }
+
   def run(): Unit = {
     println("--- Try: turn a throwing operation into a result ---")
     val valid: Try[Int] = parsePremium("600")
@@ -102,5 +123,48 @@ object TryLesson {
     assert(valid == Success(600))
     println("Original parsed value: " + valid)
     println("Execution continues after the throwing transformation.")
+
+    println("--- Try.flatMap: the next method already returns Try ---")
+    val nestedSuccess = installmentWithNestedMap(valid, 12)
+    val nestedDivisionFailure = installmentWithNestedMap(valid, 0)
+    val nestedParseFailure = installmentWithNestedMap(invalid, 12)
+    val flatSuccess = installmentWithFlatMap(valid, 12)
+    val flatDivisionFailure = installmentWithFlatMap(valid, 0)
+    val flatParseFailure = installmentWithFlatMap(invalid, 12)
+
+    println("map, both steps succeed: " + nestedSuccess)
+    println("map, calculation fails: " + nestedDivisionFailure)
+    println("map, parsing fails: " + nestedParseFailure)
+    println("flatMap, both steps succeed: " + flatSuccess)
+    println("flatMap, calculation fails: " + flatDivisionFailure)
+    println("flatMap, parsing fails: " + flatParseFailure)
+
+    assert(nestedSuccess == Success(Success(50)))
+    // The outer map succeeds because the helper RETURNED a Failure value;
+    // it did not throw an exception out to that map.
+    assert(nestedDivisionFailure.map((inner: Try[Int]) => describeInstallment(inner)) ==
+      Success("Cannot calculate installment: ArithmeticException"))
+    assert(nestedParseFailure == invalid)
+    assert(flatSuccess == Success(50))
+    assert(describeInstallment(flatDivisionFailure) ==
+      "Cannot calculate installment: ArithmeticException")
+    assert(flatParseFailure == invalid)
+    assert(installmentResultWithMatch(valid, 12) == flatSuccess)
+    assert(describeInstallment(installmentResultWithMatch(valid, 0)) ==
+      describeInstallment(flatDivisionFailure))
+    assert(installmentResultWithMatch(invalid, 12) == flatParseFailure)
+
+    val skippedCalculation = invalid.flatMap((premium: Int) => {
+      assert(false, "flatMap must skip the calculation on an existing Failure")
+      calculateInstallment(premium, 12)
+    })
+    assert(skippedCalculation == invalid)
+
+    // flatMap also captures a non-fatal exception thrown by its callback,
+    // even if that callback throws BEFORE it manages to return a Try.
+    val callbackThrows: Try[Int] =
+      valid.flatMap((premium: Int) => Success(premium / 0))
+    assert(describeInstallment(callbackThrows) ==
+      "Cannot calculate installment: ArithmeticException")
   }
 }

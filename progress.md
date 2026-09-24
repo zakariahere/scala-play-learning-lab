@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Introduced Try.map beside explicit match: successful callback result becomes Success, an existing Failure skips the callback, and a non-fatal exception thrown by the callback becomes a new Failure. Verified whole-euro 600 / 12, an existing bad parse and division by zero; the explicit success branch uses Try(...), not Success(...). Nine new assertions and the full lab passed; introduced and assistant-verified, not independent learner mastery. Next: Try.flatMap, when the next method already returns Try; compare with nested Try from map before recovery. Part 12 was last verified as draft 510945ab-bcc0-41a4-bb51-dd840f19957b on 2026-09-22; live status not rechecked. Next new article number is provisionally 13, subject to verification. Keep typed error hierarchies, type classes and deeper implicit-search precedence for later.
+Introduced Try.flatMap with calculateInstallment returning Try[Int], compared with nested Try from map and an explicit match for this helper. Verified Success(50), calculation Failure and initial parsing Failure, plus callback skipping and capture of a non-fatal exception thrown before a callback returns its Try. Examples and assertions are assistant-verified, not independent learner mastery. Next: a Try for-comprehension over the same parse/calculation chain, yielding a plain String display label; recovery follows later. Part 12 was last verified as draft 510945ab-bcc0-41a4-bb51-dd840f19957b on 2026-09-22; live status not rechecked. Next new article number is provisionally 13, subject to verification. Keep typed error hierarchies, type classes and deeper implicit-search precedence for later.
 
 ## Teaching approach
 
@@ -327,3 +327,16 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Status: introduced and assistant-verified only; no learner exercise or independent mastery claimed.
 - Next: Try.flatMap with a second method returning Try, versus nested Try from map. Defer recovery until composition is clear.
 - Blog: accumulate composition/recovery material for a coherent Try article rather than repeating the Either article with renamed wrappers. No blog state check, draft or publication; next number remains provisionally 13 pending live verification.
+
+## Session 33: Try.flatMap - compose a Try-returning calculation (2026-09-24)
+- Added calculateInstallment(premium, installments): Try[Int] = Try(premium / installments); the callback now returns Try[Int], unlike the prior plain-Int callback.
+- Added installmentWithNestedMap returning Try[Try[Int]], installmentWithFlatMap returning Try[Int], and installmentResultWithMatch returning this particular helper's Try directly.
+- Verified map yields Success(Success(50)), Success(Failure(ArithmeticException)) and the original Failure(NumberFormatException); flatMap yields Success(50), Failure(ArithmeticException) and the original parse Failure.
+- Explained that returning a Failure value is not throwing an exception. The inner Try catches division by zero, so the outer map successfully wraps the returned Failure.
+- Eleven new assertions cover nested/flat results, explicit-match agreement, preservation of the original parse failure, skipped flatMap callback and non-fatal exception capture when the callback throws before returning a Try.
+- The explicit-match example is equivalent for calculateInstallment, which already captures division exceptions; it is not presented as a general replacement for flatMap's callback exception handling.
+- sbt "runMain learning.PremiumLesson" passed all existing and new assertions on Scala 2.13.18, sbt 1.12.15 and Eclipse Adoptium Java 21.0.12.1.
+- Updated README through step 23 and both resume points. Synced main before editing and preserved the learner's uncommitted claimFreeYears = 3 practice change, excluded from this commit.
+- Status: introduced and assistant-verified, not independent learner practice or mastery.
+- Next: Try for-comprehension using the same parse/calculation chain, with flatMap/map translation and a plain String yield. Do not introduce recovery in that same small lesson.
+- Blog: the Try material now includes exception boundaries and returned-failure versus thrown-exception behavior. Accumulate the readable-chain/recovery comparison before proposing the complete article scope. No blog state checked and no article action; numbering remains provisional until live verification.
