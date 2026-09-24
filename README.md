@@ -48,12 +48,13 @@ For a faster edit/run loop, start `sbt` once, enter `runMain learning.PremiumLes
 | 19 | Either.flatMap: chain a fallible contact lookup, compare nested map results and preserve distinct failure reasons | [EitherLesson.scala](src/main/scala/learning/EitherLesson.scala) |
 | 20 | Either for-comprehension: dependent generators, a plain String yield and the equivalent flatMap/map chain | [EitherLesson.scala](src/main/scala/learning/EitherLesson.scala) |
 | 21 | Try basics: capture a throwing conversion as Success or Failure, then handle both with match | [TryLesson.scala](src/main/scala/learning/TryLesson.scala) |
+| 22 | Try.map: transform Success, skip Failure and capture a non-fatal exception from the callback | [TryLesson.scala](src/main/scala/learning/TryLesson.scala) |
 
 `PremiumLesson.main` runs the learning examples in order. Each later lesson prints a labelled section; assertions check the expected results. The deliberately failing compiler examples live outside `src/` and are run separately using their linked instructions.
 
 These steps group the runnable material; they are not blog part numbers or a claim of independent mastery. See [progress.md](progress.md) for the detailed session history.
 
-**Resume here:** `Try[Int]`, `Success`, `Failure` and handling both with `match` are introduced and verified using a throwing text-to-number conversion. Next: `Try.map`, including what happens if the transformation itself throws; not yet implemented.
+**Resume here:** `Try.map` is introduced and verified for successful division, an existing parse failure and a throwing division. Its explicit `match` equivalent uses `Try(...)` in the success branch. Next: `Try.flatMap`, when the next method already returns a `Try`; not yet implemented.
 
 A few results to look for:
 
@@ -148,7 +149,8 @@ progress.md                Covered topics and where to resume
 - [x] Either.flatMap: chain another operation that can return a failure, preserving its reason
 - [x] Either for-comprehension: express the same chain with generators and yield
 - [x] Try basics: represent success or a captured non-fatal exception, then use match
-- [ ] Try.map: transform success and capture a non-fatal exception from the transformation
+- [x] Try.map: transform success and capture a non-fatal exception from the transformation
+- [ ] Try.flatMap: compose with a method that already returns Try
 - [ ] Testing and deeper sbt workflows
 - [ ] Futures and asynchronous error handling
 - [ ] Play routes, controllers, JSON and services

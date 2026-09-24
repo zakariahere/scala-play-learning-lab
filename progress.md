@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Introduced Try[Int], Success and Failure around text.toInt, then handled both with match and a Java try/catch comparison. Failure contains the captured Throwable, not a chosen message String. Six assertions and the full lab passed; introduced and assistant-verified only, not independent learner mastery. Next: Try.map, including capture of a non-fatal exception thrown inside its transformation; defer flatMap/recovery until then. Part 12 on Either was last verified as draft 510945ab-bcc0-41a4-bb51-dd840f19957b on 2026-09-22; not rechecked this lesson. Next new article number is provisionally 13, subject to live verification. Keep typed error hierarchies, type classes and deeper implicit-search precedence for later.
+Introduced Try.map beside explicit match: successful callback result becomes Success, an existing Failure skips the callback, and a non-fatal exception thrown by the callback becomes a new Failure. Verified whole-euro 600 / 12, an existing bad parse and division by zero; the explicit success branch uses Try(...), not Success(...). Nine new assertions and the full lab passed; introduced and assistant-verified, not independent learner mastery. Next: Try.flatMap, when the next method already returns Try; compare with nested Try from map before recovery. Part 12 was last verified as draft 510945ab-bcc0-41a4-bb51-dd840f19957b on 2026-09-22; live status not rechecked. Next new article number is provisionally 13, subject to verification. Keep typed error hierarchies, type classes and deeper implicit-search precedence for later.
 
 ## Teaching approach
 
@@ -313,3 +313,17 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Synced main with origin/main before edits. Status: introduced and assistant-verified; no learner practice or independent mastery claimed.
 - Next: Try.map, transforming Success and capturing a non-fatal exception from the transformation, compared with the earlier Either behavior. No recovery or flatMap lesson yet.
 - Blog: this opening Try lesson alone is too thin for a standalone Part 13. Accumulate relevant transformation/composition or recovery material before proposing a scope. No blog state checked and no article action performed; Part 12's recorded draft status may have changed.
+
+## Session 32: Try.map - capture a throwing transformation (2026-09-24)
+- Added installmentWithMatch and installmentWithMap taking Try[Int] and an explicit installments divisor. Used whole-euro integer division for the tiny example, not a production payment schedule.
+- The typed callback (premium: Int) => premium / installments returns Int. Try.map wraps a normal return in Success and captures a thrown non-fatal exception as Failure.
+- The explicit match uses case Success(premium) => Try(premium / installments), not Success(...), because construction of Success does not catch an exception during argument evaluation.
+- Verified 600 / 12 gives Success(50), a pre-existing NumberFormatException is preserved, and 600 / 0 gives Failure(ArithmeticException). Parsing 600 succeeds before the division fails.
+- Added describeInstallment, keeping conversion-error wording separate from calculation-error wording.
+- Nine new assertions verify the normal outcome, match/map behavior, preserved existing failure, exception class on both throwing paths, skipped callback and unchanged original Success(600).
+- Compared exception class names for independently thrown errors rather than equality between different Throwable objects. Callback guard additionally requires the original failure to survive, since Try.map would capture an assertion error if wrongly invoked.
+- sbt "runMain learning.PremiumLesson" passed all assertions on Scala 2.13.18, sbt 1.12.15 and Eclipse Adoptium Java 21.0.12.1.
+- README updated through step 22; main synchronized before edits. Preserved and excluded the learner's uncommitted claimFreeYears = 3 practice edit.
+- Status: introduced and assistant-verified only; no learner exercise or independent mastery claimed.
+- Next: Try.flatMap with a second method returning Try, versus nested Try from map. Defer recovery until composition is clear.
+- Blog: accumulate composition/recovery material for a coherent Try article rather than repeating the Either article with renamed wrappers. No blog state check, draft or publication; next number remains provisionally 13 pending live verification.
