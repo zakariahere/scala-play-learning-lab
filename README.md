@@ -50,12 +50,13 @@ For a faster edit/run loop, start `sbt` once, enter `runMain learning.PremiumLes
 | 21 | Try basics: capture a throwing conversion as Success or Failure, then handle both with match | [TryLesson.scala](src/main/scala/learning/TryLesson.scala) |
 | 22 | Try.map: transform Success, skip Failure and capture a non-fatal exception from the callback | [TryLesson.scala](src/main/scala/learning/TryLesson.scala) |
 | 23 | Try.flatMap: compose a Try-returning calculation, compare nested map results and preserve failures | [TryLesson.scala](src/main/scala/learning/TryLesson.scala) |
+| 24 | Try for-comprehension: dependent generators, a plain String yield and equivalent flatMap/map calls | [TryLesson.scala](src/main/scala/learning/TryLesson.scala) |
 
 `PremiumLesson.main` runs the learning examples in order. Each later lesson prints a labelled section; assertions check the expected results. The deliberately failing compiler examples live outside `src/` and are run separately using their linked instructions.
 
 These steps group the runnable material; they are not blog part numbers or a claim of independent mastery. See [progress.md](progress.md) for the detailed session history.
 
-**Resume here:** `Try.flatMap` is introduced and verified against nested `map` results and an explicit `match`, for success, failed calculation and failed parsing. Next: a `Try` for-comprehension expressing this same chain with a display label; not yet implemented.
+**Resume here:** the `Try` for-comprehension and its `flatMap`/`map` equivalent are introduced and verified for successful labels, failed parsing and failed calculation. Next: `Try.recover`, choosing a fallback for a specific exception while leaving other failures intact; not yet implemented.
 
 A few results to look for:
 
@@ -152,7 +153,8 @@ progress.md                Covered topics and where to resume
 - [x] Try basics: represent success or a captured non-fatal exception, then use match
 - [x] Try.map: transform success and capture a non-fatal exception from the transformation
 - [x] Try.flatMap: compose with a method that already returns Try
-- [ ] Try for-comprehension: express the same chain and yield a display label
+- [x] Try for-comprehension: express the same chain and yield a display label
+- [ ] Try.recover: choose a fallback for a specific exception
 - [ ] Testing and deeper sbt workflows
 - [ ] Futures and asynchronous error handling
 - [ ] Play routes, controllers, JSON and services

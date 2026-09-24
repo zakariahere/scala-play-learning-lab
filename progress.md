@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Introduced Try.flatMap with calculateInstallment returning Try[Int], compared with nested Try from map and an explicit match for this helper. Verified Success(50), calculation Failure and initial parsing Failure, plus callback skipping and capture of a non-fatal exception thrown before a callback returns its Try. Examples and assertions are assistant-verified, not independent learner mastery. Next: a Try for-comprehension over the same parse/calculation chain, yielding a plain String display label; recovery follows later. Part 12 was last verified as draft 510945ab-bcc0-41a4-bb51-dd840f19957b on 2026-09-22; live status not rechecked. Next new article number is provisionally 13, subject to verification. Keep typed error hierarchies, type classes and deeper implicit-search precedence for later.
+Introduced installmentLabelWithFor beside the explicit flatMap/map chain. Both generators bind Int values; yield builds a plain String inside Try[String]. Verified the successful label, NumberFormatException from parsing and ArithmeticException from calculation with six assertions; introduced and assistant-verified only, not independent learner mastery. Next: Try.recover, choosing a fallback for a specific exception, explaining the typed case pattern first and leaving other failures intact. Defer recoverWith until recover is clear. Part 12 was last verified as draft 510945ab-bcc0-41a4-bb51-dd840f19957b on 2026-09-22; live status not rechecked. Next new article number is provisionally 13, subject to verification. Keep typed error hierarchies, type classes and deeper implicit-search precedence for later.
 
 ## Teaching approach
 
@@ -340,3 +340,17 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Status: introduced and assistant-verified, not independent learner practice or mastery.
 - Next: Try for-comprehension using the same parse/calculation chain, with flatMap/map translation and a plain String yield. Do not introduce recovery in that same small lesson.
 - Blog: the Try material now includes exception boundaries and returned-failure versus thrown-exception behavior. Accumulate the readable-chain/recovery comparison before proposing the complete article scope. No blog state checked and no article action; numbering remains provisional until live verification.
+
+## Session 34: Try for-comprehension - the same dependent chain (2026-09-24)
+- Added installmentLabelWithMethods(text, installments): Try[String] and installmentLabelWithFor with the same return type.
+- The first generator binds premium: Int from parsePremium; the second binds amount: Int from calculateInstallment and depends on premium.
+- yield constructs the plain String "600 EUR / 12 = 50 EUR"; the final map wraps it in Success. No extra Success(...) or Try(...) is needed around the yielded label.
+- Compared the for-comprehension with the explicit outer flatMap/inner map; both names remain available in the label expression.
+- Verified six assertions: exact successful label and success equivalence, plus NumberFormatException and ArithmeticException for both implementations. Compared failure class names because independently evaluated operations create distinct Throwable objects.
+- An initial Failure skips the dependent calculation and yield; a calculation Failure skips yield. The for syntax does not add a separate catch mechanism; behavior comes from the underlying Try operations.
+- Initial run exposed two Scala 2.13 Int.+(String) deprecation warnings. Confirmed with session-only scalacOptions += "-deprecation", then used premium.toString before concatenation. Final full compile/run passes with no compiler warnings; build.sbt unchanged.
+- sbt "runMain learning.PremiumLesson" passed all existing and new assertions on Scala 2.13.18, sbt 1.12.15 and Eclipse Adoptium Java 21.0.12.1.
+- README updated through step 24 and both resume points updated. Synced main before edits; preserved and excluded claimFreeYears = 3 practice change.
+- Status: introduced and assistant-verified, not independently practiced or mastered by the learner.
+- Next: Try.recover with one specific exception and fallback value. Explain the typed case pattern before combining it with recovery; unmatched failures stay failures. Defer recoverWith.
+- Blog: readable Try composition now covered; add the planned targeted recovery lesson to round out a distinct exception-handling article. No blog state checked or article action performed; provisional next number 13 requires live verification.

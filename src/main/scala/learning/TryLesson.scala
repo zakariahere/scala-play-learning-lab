@@ -63,6 +63,25 @@ object TryLesson {
     result.flatMap((premium: Int) => calculateInstallment(premium, installments))
   }
 
+  def installmentLabelWithMethods(text: String, installments: Int): Try[String] = {
+    parsePremium(text).flatMap((premium: Int) => {
+      calculateInstallment(premium, installments).map((amount: Int) => {
+        premium.toString + " EUR / " + installments + " = " + amount + " EUR"
+      })
+    })
+  }
+
+  def installmentLabelWithFor(text: String, installments: Int): Try[String] = {
+    for {
+      // premium is an Int from Success, not a Try[Int].
+      premium <- parsePremium(text)
+      // This calculation depends on the parsed premium.
+      amount <- calculateInstallment(premium, installments)
+    } yield premium.toString + " EUR / " + installments + " = " + amount + " EUR"
+    // yield returns a plain String; the final map wraps it in Success.
+    // A Failure at either step skips the remaining dependent work.
+  }
+
   def run(): Unit = {
     println("--- Try: turn a throwing operation into a result ---")
     val valid: Try[Int] = parsePremium("600")
@@ -166,5 +185,36 @@ object TryLesson {
       valid.flatMap((premium: Int) => Success(premium / 0))
     assert(describeInstallment(callbackThrows) ==
       "Cannot calculate installment: ArithmeticException")
+
+    println("--- Try for-comprehension: the same flatMap/map chain ---")
+    val methodLabel = installmentLabelWithMethods("600", 12)
+    val forLabel = installmentLabelWithFor("600", 12)
+    val methodBadParse = installmentLabelWithMethods("hello", 12)
+    val forBadParse = installmentLabelWithFor("hello", 12)
+    val methodBadDivision = installmentLabelWithMethods("600", 0)
+    val forBadDivision = installmentLabelWithFor("600", 0)
+
+    println("Methods, both steps succeed: " + methodLabel)
+    println("For, both steps succeed: " + forLabel)
+    println("Methods, parsing fails: " + methodBadParse)
+    println("For, parsing fails: " + forBadParse)
+    println("Methods, calculation fails: " + methodBadDivision)
+    println("For, calculation fails: " + forBadDivision)
+
+    // Test helper: independently evaluated failures contain different exceptions.
+    // Compare their exception classes, not their object identity or message text.
+    def failureName(result: Try[String]): String = {
+      result match {
+        case Failure(error) => error.getClass.getSimpleName
+        case Success(label) => "Unexpected success: " + label
+      }
+    }
+
+    assert(methodLabel == Success("600 EUR / 12 = 50 EUR"))
+    assert(forLabel == methodLabel)
+    assert(failureName(methodBadParse) == "NumberFormatException")
+    assert(failureName(forBadParse) == "NumberFormatException")
+    assert(failureName(methodBadDivision) == "ArithmeticException")
+    assert(failureName(forBadDivision) == "ArithmeticException")
   }
 }
