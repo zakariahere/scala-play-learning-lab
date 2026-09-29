@@ -53,6 +53,7 @@ object PremiumLesson {
     ImplicitClassLesson.run()
     EitherLesson.run()
     TryLesson.run()
+    ResultFlowLesson.run()
   }
 
   // Parameters have name: Type syntax; the Int after ')' is the result type.

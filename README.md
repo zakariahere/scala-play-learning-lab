@@ -53,12 +53,13 @@ For a faster edit/run loop, start `sbt` once, enter `runMain learning.PremiumLes
 | 24 | Try for-comprehension: dependent generators, a plain String yield and equivalent flatMap/map calls | [TryLesson.scala](src/main/scala/learning/TryLesson.scala) |
 | 25 | Try.recover: typed exception patterns, a display fallback and preserving unmatched failures | [TryLesson.scala](src/main/scala/learning/TryLesson.scala) |
 | 26 | Try.recoverWith: a Try-returning fallback, explicit match and failed backup outcomes | [TryLesson.scala](src/main/scala/learning/TryLesson.scala) |
+| 27 | Option / Either / Try together: explicit result conversion, validation and first-error behavior | [ResultFlowLesson.scala](src/main/scala/learning/ResultFlowLesson.scala) |
 
 `PremiumLesson.main` runs the learning examples in order. Each later lesson prints a labelled section; assertions check the expected results. The deliberately failing compiler examples live outside `src/` and are run separately using their linked instructions.
 
 These steps group the runnable material; they are not blog part numbers or a claim of independent mastery. See [progress.md](progress.md) for the detailed session history.
 
-**Resume here:** `Try.recoverWith` is introduced and verified beside an explicit `match`: a selected backup can succeed or fail, with no automatic retry. Next: a small Option/Either/Try consolidation example before formal testing; no independent mastery claimed.
+**Resume here:** one Option/Either/Try flow is introduced and verified: explicit matches translate lookup/parsing outcomes into Either, positive-count validation prevents division by zero, and the first error stops the chain. Next: a first named automated test and what `sbt test` runs, after inspecting the learner's existing sbt work. No independent mastery claimed.
 
 A few results to look for:
 
@@ -158,6 +159,7 @@ progress.md                Covered topics and where to resume
 - [x] Try for-comprehension: express the same chain and yield a display label
 - [x] Try.recover: choose a fallback for a specific exception
 - [x] Try.recoverWith: select a fallback operation that already returns Try
+- [x] Option / Either / Try consolidation: lookup, parse, validate and compose
 - [ ] Testing and deeper sbt workflows
 - [ ] Futures and asynchronous error handling
 - [ ] Play routes, controllers, JSON and services

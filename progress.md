@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Introduced Try.recoverWith beside an explicit match, selecting an operation returning Try[String] for a NumberFormatException. Verified backup success, failed backup parsing/calculation, preserved success and unmatched failure, skipped handlers and one attempt only. Introduced and assistant-verified, not independent learner mastery. Next: one small Option/Either/Try consolidation example before formal testing, without introducing more combinators. On 2026-09-24, verified Part 12 published and saved Part 13 as draft 3a04344a-0bf7-4656-8ea5-54972cee5e42; status has not been rechecked. Update that existing article rather than creating a duplicate. Next new article number is provisionally 14, subject to fresh verification. Keep typed error hierarchies, type classes and deeper implicit-search precedence for later.
+Introduced ResultFlowLesson: Option lookup and Try parsing are explicitly translated with match into Either[String, ...], a positive-count rule rejects zero/negative values, and a for-comprehension returns a label or the first failure reason. Fourteen assertions and the full lab run pass; introduced and assistant-verified, not independent learner mastery. Next: a first named automated test for this flow and what sbt test runs; inspect the learner's existing sbt work before selecting a test library or repeating build lessons. On 2026-09-24, verified Part 12 published and saved Part 13 as draft 3a04344a-0bf7-4656-8ea5-54972cee5e42; status has not been rechecked. Update that existing article rather than creating a duplicate. Next new article number is provisionally 14, subject to fresh verification. Keep typed error hierarchies, type classes and deeper implicit-search precedence for later.
 
 ## Teaching approach
 
@@ -392,3 +392,15 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Next: a small consolidation scenario choosing Option, Either and Try by what each result means, before formal tests. Do not start Future or Play in the same lesson.
 - Blog: this is a short companion to Part 13, not enough for a separate article. No article write, live status check or publication; verify the existing article before any requested addition.
 - The restored six-page desk cheatsheet covers through session 35 (recover). No PDF update was requested in this teaching turn; add recoverWith on its next revision.
+
+## Session 37: Option, Either and Try in one flow (2026-09-29)
+- Added ResultFlowLesson, reusing OptionLesson.findPolicy. requirePolicy explicitly maps Some to Right and None to Left with a policy-not-found reason.
+- readInstallments captures text.toInt in Try, then explicitly matches Success/Failure into Either[String, Int]. A successfully parsed zero or negative count fails the fictional positive-count rule.
+- installmentLabel composes two Either-returning methods with a for-comprehension. The wrappers are not mixed automatically; the explicit match expressions choose the outcome representation.
+- The label uses basePremium (600 for POL-001), not the claim-free discounted premium. Whole-euro integer division remains a tiny example, not production payment scheduling.
+- Fourteen assertions cover required/missing policy, valid count, malformed/empty/overflow text, zero/negative counts, successful label and distinct errors. A guard confirms the count step is skipped after policy failure; both bad inputs report only the first error, not accumulated errors.
+- Full sbt "runMain learning.PremiumLesson" passed with Scala 2.13.18, sbt 1.12.15 and Java 21.0.12.1.
+- README updated through step 27 and entry-point invocation added. Main matched origin/main before edits. Stage only the new entry-point invocation, preserving and excluding the learner's claimFreeYears = 3 edit.
+- Status: introduced and assistant-verified consolidation, not independent learner practice or demonstrated mastery.
+- Next: one named automated test for ResultFlowLesson and explain what sbt test runs. Inspect existing sbt study work and build configuration first; no library/version chosen yet. Keep Future, Play and typed error hierarchies for later.
+- Blog: useful consolidation alongside Parts 12-13, not yet a separate article. No blog action or live-state verification; numbering remains provisional. PDF still covers session 35; not regenerated this turn.
