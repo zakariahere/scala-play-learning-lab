@@ -7,7 +7,7 @@
 
 A hands-on learning journey through Scala, sbt and eventually Play. Small insurance-policy examples connect familiar Java concepts to Scala's expressions, data modelling and optional values.
 
-**Current stage:** Scala 2 language essentials through traits, implicits and `Either` composition; now introducing `Try` for a value or a captured non-fatal exception. Play 3 and Apache Pekko are future topics, not installed dependencies. All policy data and pricing rules are fictional.
+**Current stage:** Scala 2 language essentials through traits, implicits, `Either` and `Try`, plus a combined result flow and its first named ScalaTest test. Play 3 and Apache Pekko are future topics, not installed dependencies. All policy data and pricing rules are fictional.
 
 ## Run the lab
 
@@ -19,11 +19,20 @@ cd scala-play-learning-lab
 sbt "runMain learning.PremiumLesson"
 ```
 
-The project pins Scala and sbt independently. You do not need a separate Scala installation. The first run downloads the compiler and build dependencies. This lab has been run with JDK 25.0.2; that is a verified local environment, not a minimum-version requirement.
+The project pins Scala and sbt independently. You do not need a separate Scala installation. The first run downloads the compiler and build dependencies. The latest lesson and test runs used Eclipse Adoptium JDK 21.0.12.1; this is a verified local environment, not a minimum-version requirement.
 
 For a faster edit/run loop, start `sbt` once, enter `runMain learning.PremiumLesson`, edit a source file, and run that command again. Use `exit` to leave. IntelliJ IDEA users can open the root directory as an sbt project with the Scala plugin installed.
 
 ## Follow the lessons
+
+The examples below run via `runMain`; the named test suite runs separately:
+
+```sh
+sbt test
+sbt "testOnly learning.ResultFlowLessonSpec"
+```
+
+ScalaTest 3.2.19 is test-scoped, matching the separate `sbtlearn` project. The first suite checks one successful result flow; it does not yet cover every failure branch. `sbt test` does not automatically execute assertions inside lesson `run()` methods. See the [AnyFunSuite reference](https://www.scalatest.org/scaladoc/3.2.19/org/scalatest/funsuite/AnyFunSuite.html).
 
 | Step | Concept | Read the code |
 | --- | --- | --- |
@@ -54,12 +63,13 @@ For a faster edit/run loop, start `sbt` once, enter `runMain learning.PremiumLes
 | 25 | Try.recover: typed exception patterns, a display fallback and preserving unmatched failures | [TryLesson.scala](src/main/scala/learning/TryLesson.scala) |
 | 26 | Try.recoverWith: a Try-returning fallback, explicit match and failed backup outcomes | [TryLesson.scala](src/main/scala/learning/TryLesson.scala) |
 | 27 | Option / Either / Try together: explicit result conversion, validation and first-error behavior | [ResultFlowLesson.scala](src/main/scala/learning/ResultFlowLesson.scala) |
+| 28 | A named ScalaTest test: arrange / act / assert, real failure output, test versus runMain | [ResultFlowLessonSpec.scala](src/test/scala/learning/ResultFlowLessonSpec.scala) |
 
 `PremiumLesson.main` runs the learning examples in order. Each later lesson prints a labelled section; assertions check the expected results. The deliberately failing compiler examples live outside `src/` and are run separately using their linked instructions.
 
 These steps group the runnable material; they are not blog part numbers or a claim of independent mastery. See [progress.md](progress.md) for the detailed session history.
 
-**Resume here:** one Option/Either/Try flow is introduced and verified: explicit matches translate lookup/parsing outcomes into Either, positive-count validation prevents division by zero, and the first error stops the chain. Next: a first named automated test and what `sbt test` runs, after inspecting the learner's existing sbt work. No independent mastery claimed.
+**Resume here:** the first named ResultFlowLesson test is introduced and verified, including a deliberately wrong expectation followed by a passing correction. AnyFunSuite is being explained from first principles: earlier generated sbt examples are not evidence of learner understanding. Next: build on this explanation with separate named tests for failure branches. No independent mastery claimed.
 
 A few results to look for:
 
@@ -99,7 +109,7 @@ These commands run from the repository root. sbt uses tasks and settings rather 
 | Maven intent | sbt command |
 | --- | --- |
 | `mvn compile` | `sbt compile` |
-| `mvn test` | `sbt test` (no separate `src/test` suite yet; run the lesson assertions with `runMain`) |
+| `mvn test` | `sbt test` (named suites under `src/test/scala`; lesson assertions still run via `runMain`) |
 | `mvn clean package` | `sbt clean test package` |
 | Run this application's entry point | `sbt "runMain learning.PremiumLesson"` |
 | `mvn dependency:tree` | `sbt dependencyTree` |
@@ -121,9 +131,10 @@ See the official [publishing guide](https://www.scala-sbt.org/1.x/docs/Publishin
 ## Project layout
 
 ```text
-build.sbt                  Project name, version and Scala version
+build.sbt                  Project settings and test-scoped ScalaTest dependency
 project/build.properties   Pinned sbt version
 src/main/scala/learning/   Runnable, commented examples
+src/test/scala/learning/   Named ScalaTest suites
 progress.md                Covered topics and where to resume
 ```
 
@@ -160,7 +171,9 @@ progress.md                Covered topics and where to resume
 - [x] Try.recover: choose a fallback for a specific exception
 - [x] Try.recoverWith: select a fallback operation that already returns Try
 - [x] Option / Either / Try consolidation: lookup, parse, validate and compose
-- [ ] Testing and deeper sbt workflows
+- [ ] Deeper sbt workflows
+- [x] First named ScalaTest test and testOnly selection
+- [ ] Named failure-path tests and deeper testing workflows
 - [ ] Futures and asynchronous error handling
 - [ ] Play routes, controllers, JSON and services
 - [ ] Apache Pekko concepts and version-specific integration

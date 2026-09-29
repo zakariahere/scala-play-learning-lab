@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Introduced ResultFlowLesson: Option lookup and Try parsing are explicitly translated with match into Either[String, ...], a positive-count rule rejects zero/negative values, and a for-comprehension returns a label or the first failure reason. Fourteen assertions and the full lab run pass; introduced and assistant-verified, not independent learner mastery. Next: a first named automated test for this flow and what sbt test runs; inspect the learner's existing sbt work before selecting a test library or repeating build lessons. On 2026-09-24, verified Part 12 published and saved Part 13 as draft 3a04344a-0bf7-4656-8ea5-54972cee5e42; status has not been rechecked. Update that existing article rather than creating a duplicate. Next new article number is provisionally 14, subject to fresh verification. Keep typed error hierarchies, type classes and deeper implicit-search precedence for later.
+Introduced one named ScalaTest test for ResultFlowLesson, with a real wrong-expectation failure followed by a passing correction. User explicitly clarified that prior AnyFunSuite code was AI-generated: assume no AnyFunSuite knowledge and explain it from first principles. Existing files and prior progress checkboxes are not evidence of independent learner understanding. Explain suite versus test, inherited test method versus Scala keyword, name/body argument lists and runner-controlled execution. Next: build on that foundation with individually named failure-path tests; do not rush into fixtures, mocks or matcher DSLs. On 2026-09-24, verified Part 12 published and saved Part 13 as draft 3a04344a-0bf7-4656-8ea5-54972cee5e42; status has not been rechecked. Update that existing article rather than creating a duplicate. Next new article number is provisionally 14, subject to fresh verification. Keep typed error hierarchies, type classes and deeper implicit-search precedence for later.
 
 ## Teaching approach
 
@@ -404,3 +404,17 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Status: introduced and assistant-verified consolidation, not independent learner practice or demonstrated mastery.
 - Next: one named automated test for ResultFlowLesson and explain what sbt test runs. Inspect existing sbt study work and build configuration first; no library/version chosen yet. Keep Future, Play and typed error hierarchies for later.
 - Blog: useful consolidation alongside Parts 12-13, not yet a separate article. No blog action or live-state verification; numbering remains provisional. PDF still covers session 35; not regenerated this turn.
+
+## Session 38: first named test in this lab; AnyFunSuite from zero (2026-09-29)
+- Inspected sbtlearn build.sbt, MainSpec.scala, LESSON.md and outputs/progress.md. It contains ScalaTest 3.2.19 and an AnyFunSuite arithmetic example.
+- User corrected the teaching assumption: that code was AI-generated and AnyFunSuite must be explained as unknown. Do not infer mastery from generated files, passing code or previous checked boxes.
+- Added test-scoped ScalaTest 3.2.19 to this lab, retaining the existing version for consistency rather than claiming it is the latest. Checked official 3.2.19 AnyFunSuite documentation.
+- Added src/test/scala/learning/ResultFlowLessonSpec.scala with exactly one named happy-path test. Calls the real workflow, comparing the whole Either to Right("POL-001: 600 EUR / 12 = 50 EUR"); inputs do not depend on PremiumLesson practice values.
+- Teach AnyFunSuite as a library base class for a group of named tests; extends inherits testing methods. test is a method, not a Scala keyword. Its name argument and code block supply the test registration; the runner later executes the body. A suite needs no application main.
+- Familiar assertion remains the check; ScalaTest provides named reporting and diagnostics. Separate arrange / act / assert comments are ordinary comments, not framework syntax. Spec in the class name is a convention, not the discovery mechanism.
+- Deliberately expected 51 EUR once: sbt test ran 1 test, failed with actual 50 versus expected 51 and exited 1. Restored the correct 50 EUR expectation; sbt test and testOnly learning.ResultFlowLessonSpec both ran 1 successful test.
+- Full runMain learning.PremiumLesson also passes. Existing lesson assertions remain in run() and do not automatically run under sbt test; the new suite is not comprehensive coverage.
+- README updated through step 28, current Java environment corrected to 21.0.12.1 and obsolete no-test-suite wording removed. No production logic or practice code changed.
+- Status: introduced and assistant-verified; AnyFunSuite familiarity explicitly not assumed, independent learner mastery not claimed.
+- Next: individually named tests for missing policy, malformed count, non-positive count and first-error behavior, after the suite/test distinction is clear. No fixtures, mocks or extra test DSL.
+- Blog and PDF unchanged. This is the beginning of testing material, not yet a standalone new article; verify numbering/live article state before future blog work.
