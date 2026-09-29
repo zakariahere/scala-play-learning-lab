@@ -5,9 +5,9 @@
 [![Scala 2.13.18](https://img.shields.io/badge/Scala-2.13.18-DC322F?logo=scala)](https://www.scala-lang.org/)
 [![sbt 1.12.15](https://img.shields.io/badge/sbt-1.12.15-1274B8)](https://www.scala-sbt.org/)
 
-A hands-on learning journey through Scala, sbt and eventually Play. Small insurance-policy examples connect familiar Java concepts to Scala's expressions, data modelling and optional values.
+A hands-on learning journey through Scala and sbt, ending with asynchronous Scala. Small insurance-policy examples connect familiar Java concepts to Scala's expressions, data modelling and optional values.
 
-**Current stage:** Scala 2 language essentials through traits, implicits, `Either` and `Try`, plus a combined result flow with six named ScalaTest tests. Play 3 and Apache Pekko are future topics, not installed dependencies. All policy data and pricing rules are fictional.
+**Current stage:** Scala 2 language essentials through traits, implicits, `Either` and `Try`, plus eight named ScalaTest tests covering returned results and thrown exceptions. This cursus ends after asynchronous Scala; Play 3 and Apache Pekko are outside its scope and are not installed dependencies. All policy data and pricing rules are fictional.
 
 ## Run the lab
 
@@ -30,9 +30,10 @@ The examples below run via `runMain`; the named test suite runs separately:
 ```sh
 sbt test
 sbt "testOnly learning.ResultFlowLessonSpec"
+sbt "testOnly learning.ExceptionBoundarySpec"
 ```
 
-ScalaTest 3.2.19 is test-scoped, matching the separate `sbtlearn` project. The suite has six named cases: successful label, missing policy, malformed count, zero count, negative count and first-error precedence. These are examples, not exhaustive coverage. `sbt test` does not automatically execute assertions inside lesson `run()` methods. See the [AnyFunSuite reference](https://www.scalatest.org/scaladoc/3.2.19/org/scalatest/funsuite/AnyFunSuite.html).
+ScalaTest 3.2.19 is test-scoped, matching the separate `sbtlearn` project. Eight named tests run across two suites: six result-flow cases plus a focused returned-`Left` versus thrown-exception comparison. `intercept[NumberFormatException] { ... }` checks that its block throws the expected type and returns the exception for inspection; no exception or a different type fails the test. These are examples, not exhaustive coverage. `sbt test` does not automatically execute assertions inside lesson `run()` methods. See the [AnyFunSuite reference](https://www.scalatest.org/scaladoc/3.2.19/org/scalatest/funsuite/AnyFunSuite.html) and [exception assertion reference](https://www.scalatest.org/scaladoc/3.2.19/org/scalatest/Assertions.html).
 
 | Step | Concept | Read the code |
 | --- | --- | --- |
@@ -65,12 +66,13 @@ ScalaTest 3.2.19 is test-scoped, matching the separate `sbtlearn` project. The s
 | 27 | Option / Either / Try together: explicit result conversion, validation and first-error behavior | [ResultFlowLesson.scala](src/main/scala/learning/ResultFlowLesson.scala) |
 | 28 | A named ScalaTest test: arrange / act / assert, real failure output, test versus runMain | [ResultFlowLessonSpec.scala](src/test/scala/learning/ResultFlowLessonSpec.scala) |
 | 29 | Named failure-path tests: expected Left values, parsing versus validation and first-error precedence | [ResultFlowLessonSpec.scala](src/test/scala/learning/ResultFlowLessonSpec.scala) |
+| 30 | Returned Left versus thrown exception: intercept, type arguments and inspecting the caught exception | [ExceptionBoundarySpec.scala](src/test/scala/learning/ExceptionBoundarySpec.scala) |
 
 `PremiumLesson.main` runs the learning examples in order. Each later lesson prints a labelled section; assertions check the expected results. The deliberately failing compiler examples live outside `src/` and are run separately using their linked instructions.
 
 These steps group the runnable material; they are not blog part numbers or a claim of independent mastery. See [progress.md](progress.md) for the detailed session history.
 
-**Resume here:** six named tests are introduced and verified. An expected Left is a passing test when the workflow correctly rejects input; parsing failure, validation failure and first-error precedence have separate names. Next: contrast a returned Left with a genuinely thrown exception in a test. Explain unfamiliar testing syntax from zero; generated code is not evidence of learner mastery.
+**Resume here:** eight named tests are introduced and verified, including returned errors versus thrown exceptions. Next: a small testing consolidation, then practical generics and sealed domain errors before asynchronous Scala. Explain unfamiliar testing syntax from zero; generated code is not evidence of learner mastery.
 
 A few results to look for:
 
@@ -175,12 +177,14 @@ progress.md                Covered topics and where to resume
 - [ ] Deeper sbt workflows
 - [x] First named ScalaTest test and testOnly selection
 - [x] Named failure-path tests for the result flow
-- [ ] Testing thrown exceptions and deeper testing workflows
+- [x] Testing thrown exceptions with intercept
+- [ ] Small testing consolidation
+- [ ] Practical generics, sealed traits and typed domain errors
+- [ ] Useful variance and Java interoperability
 - [ ] Futures and asynchronous error handling
-- [ ] Play routes, controllers, JSON and services
-- [ ] Apache Pekko concepts and version-specific integration
+- [ ] Final synchronous/asynchronous Scala consolidation
 
-The course targets Scala 2.13.18, Play 3 and Apache Pekko. Exact Play and Pekko patch versions will be selected when the framework module is introduced.
+The course targets Scala 2.13.18 and ends after asynchronous Scala. Play 3, persistence/integrations and Apache Pekko are possible separate follow-on courses, not requirements for finishing this cursus. Checked items mean introduced with runnable examples, not independently mastered.
 
 ## Read along
 

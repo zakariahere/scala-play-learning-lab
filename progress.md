@@ -2,6 +2,10 @@
 
 Updated: 2026-09-29
 
+## Course finish line (user decision 2026-09-29)
+
+This cursus ends after asynchronous Scala. Remaining: testing consolidation; practical generics, sealed traits and typed errors, useful variance/Java interop; Future, ExecutionContext, composition, recovery and blocking boundaries, then a final exercise. sbt stays woven into lessons. Play, persistence and Pekko are possible separate follow-on courses. Historical stack notes below do not override this decision.
+
 ## Covered with runnable examples
 
 - `val` versus `var`, static type inference and expression results.
@@ -16,7 +20,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Introduced five additional named failure-path tests in ResultFlowLessonSpec; all six tests pass. Expected Left values are successful test outcomes when rejection is correct. Distinguish malformed parsing from non-positive validation and first-error precedence; each test supplies its own inputs. Assistant-verified only, not independent learner mastery. Next: compare testing a returned Left with a genuinely thrown exception; explain intercept and its type argument before using them. Prior AnyFunSuite code was AI-generated: do not infer understanding from files or checked progress boxes; explain unfamiliar testing syntax from first principles. Defer fixtures, mocks and matcher DSLs. On 2026-09-24, verified Part 12 published and saved Part 13 as draft 3a04344a-0bf7-4656-8ea5-54972cee5e42; status has not been rechecked. Update that existing article rather than creating a duplicate. Next new article number is provisionally 14, subject to fresh verification. Keep typed error hierarchies, type classes and deeper implicit-search precedence for later.
+Introduced ExceptionBoundarySpec: returned Left versus raw conversion throwing NumberFormatException, checked with intercept. Explained type argument, supplied block and returned exception. All eight named tests and full runMain pass. Assistant-verified only, not independent learner mastery. Next: small testing consolidation, then practical generics, sealed traits/typed errors and asynchronous Scala. This cursus ends after asynchronous Scala; Play, persistence and Pekko are outside its scope. Prior AnyFunSuite code was AI-generated: do not infer understanding from files or checked progress boxes; explain unfamiliar testing syntax from first principles. Defer fixtures, mocks and matcher DSLs. On 2026-09-24, verified Part 12 published and saved Part 13 as draft 3a04344a-0bf7-4656-8ea5-54972cee5e42; status has not been rechecked. Update that existing article rather than creating a duplicate. Next new article number is provisionally 14, subject to fresh verification. Keep typed error hierarchies, type classes and deeper implicit-search precedence for later.
 
 ## Teaching approach
 
@@ -430,3 +434,13 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Updated README through step 29 and both progress checkpoints. Status: introduced and assistant-verified, not independent learner practice or mastery.
 - Next: a small distinction between returned Left and thrown exception using ScalaTest intercept, with unfamiliar syntax explained before the example. Do not jump into mocks, fixtures or matcher DSLs.
 - Blog/PDF unchanged. Testing material is growing toward a coherent article; no live blog status/numbering checks, draft creation or publication this turn.
+
+## Session 40: returned errors versus thrown exceptions (2026-09-29)
+- Added ExceptionBoundarySpec with two tests: readInstallments("hello") returns Left; raw "hello".toInt throws NumberFormatException.
+- intercept is inherited from ScalaTest, not a keyword. [NumberFormatException] is a type argument; the block supplies code executed inside its checking boundary. The caught exception is returned. No exception or a wrong type fails the test; subclasses of the expected type also match.
+- Inspected the returned exception's nonempty message without asserting exact JVM wording. The throwing expression must be inside the block; intercept around readInstallments would fail because it returns normally.
+- Verified sbt test: eight tests pass across two suites. testOnly learning.ExceptionBoundarySpec: two pass. Full runMain learning.PremiumLesson passes. No production logic or dependencies changed.
+- Preserved and excluded user edits in PremiumLesson and ResultFlowLessonSpec. README updated through step 30; both progress files updated. Introduced and assistant-verified only, not independent learner mastery.
+- Next: small testing consolidation, then practical generics and sealed domain errors before Future/ExecutionContext. Defer mocks, fixtures and matcher DSLs.
+- User scope decision: end this cursus after asynchronous Scala and final consolidation. Play, persistence/integrations, Pekko and production deployment are outside this cursus. sbt remains woven into lessons.
+- Blog: testing can support a coherent article after consolidation (named tests, expected Left, exception assertions and sbt selection). No blog draft, publication or live status/numbering check; retain existing Part 13 identity and provisional Part 14 gate. PDF unchanged.
