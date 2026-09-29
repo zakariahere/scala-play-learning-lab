@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Introduced one named ScalaTest test for ResultFlowLesson, with a real wrong-expectation failure followed by a passing correction. User explicitly clarified that prior AnyFunSuite code was AI-generated: assume no AnyFunSuite knowledge and explain it from first principles. Existing files and prior progress checkboxes are not evidence of independent learner understanding. Explain suite versus test, inherited test method versus Scala keyword, name/body argument lists and runner-controlled execution. Next: build on that foundation with individually named failure-path tests; do not rush into fixtures, mocks or matcher DSLs. On 2026-09-24, verified Part 12 published and saved Part 13 as draft 3a04344a-0bf7-4656-8ea5-54972cee5e42; status has not been rechecked. Update that existing article rather than creating a duplicate. Next new article number is provisionally 14, subject to fresh verification. Keep typed error hierarchies, type classes and deeper implicit-search precedence for later.
+Introduced five additional named failure-path tests in ResultFlowLessonSpec; all six tests pass. Expected Left values are successful test outcomes when rejection is correct. Distinguish malformed parsing from non-positive validation and first-error precedence; each test supplies its own inputs. Assistant-verified only, not independent learner mastery. Next: compare testing a returned Left with a genuinely thrown exception; explain intercept and its type argument before using them. Prior AnyFunSuite code was AI-generated: do not infer understanding from files or checked progress boxes; explain unfamiliar testing syntax from first principles. Defer fixtures, mocks and matcher DSLs. On 2026-09-24, verified Part 12 published and saved Part 13 as draft 3a04344a-0bf7-4656-8ea5-54972cee5e42; status has not been rechecked. Update that existing article rather than creating a duplicate. Next new article number is provisionally 14, subject to fresh verification. Keep typed error hierarchies, type classes and deeper implicit-search precedence for later.
 
 ## Teaching approach
 
@@ -418,3 +418,15 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Status: introduced and assistant-verified; AnyFunSuite familiarity explicitly not assumed, independent learner mastery not claimed.
 - Next: individually named tests for missing policy, malformed count, non-positive count and first-error behavior, after the suite/test distinction is clear. No fixtures, mocks or extra test DSL.
 - Blog and PDF unchanged. This is the beginning of testing material, not yet a standalone new article; verify numbering/live article state before future blog work.
+
+## Session 39: named tests for expected failure results (2026-09-29)
+- Added five tests to the same AnyFunSuite: missing policy, malformed installment text, zero count, negative count and policy-not-found precedence when both inputs are invalid.
+- Each test calls ResultFlowLesson.installmentLabel with its own literal inputs and compares the entire Either against the expected Left. No production logic changed.
+- Teaching distinction: application rejection is not test failure. A Left is a returned value; the test passes when the expected rejection is returned. A failed equality assertion is a failed test.
+- Separate parsing and validation cases: "hello" cannot be read as Int, whereas "0" and "-1" parse successfully but violate the fictional positive-count rule.
+- First-error test checks the externally observable error choice. It does not by itself prove whether a method was called; prior runMain guards separately demonstrate short-circuiting.
+- sbt test reported six tests succeeded, zero failed. Full runMain learning.PremiumLesson also passed on Scala 2.13.18, sbt 1.12.15 and Java 21.0.12.1.
+- Verified main synchronized before edits. Preserved both user changes: claimFreeYears = 3 in PremiumLesson and removed whitespace before the happy-path test block in ResultFlowLessonSpec. Exclude both from the focused commit.
+- Updated README through step 29 and both progress checkpoints. Status: introduced and assistant-verified, not independent learner practice or mastery.
+- Next: a small distinction between returned Left and thrown exception using ScalaTest intercept, with unfamiliar syntax explained before the example. Do not jump into mocks, fixtures or matcher DSLs.
+- Blog/PDF unchanged. Testing material is growing toward a coherent article; no live blog status/numbering checks, draft creation or publication this turn.

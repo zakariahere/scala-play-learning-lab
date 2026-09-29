@@ -17,4 +17,38 @@ class ResultFlowLessonSpec extends AnyFunSuite {
     // Assert: compare the entire Either, including its Right/Left branch.
     assert(actual == Right("POL-001: 600 EUR / 12 = 50 EUR"))
   }
+
+  // A returned Left is an expected workflow outcome, not a failed test.
+  // The test passes when the entire outcome equals the expected Left.
+  test("a missing policy returns its not-found reason") {
+    val actual = ResultFlowLesson.installmentLabel("POL-999", "12")
+
+    assert(actual == Left("Policy not found: POL-999"))
+  }
+
+  test("a malformed installment count returns a parsing reason") {
+    val actual = ResultFlowLesson.installmentLabel("POL-001", "hello")
+
+    assert(actual == Left("Cannot read installments: NumberFormatException"))
+  }
+
+  test("zero installments are rejected after successful parsing") {
+    val actual = ResultFlowLesson.installmentLabel("POL-001", "0")
+
+    assert(actual == Left("Installments must be positive"))
+  }
+
+  test("negative installments are rejected after successful parsing") {
+    val actual = ResultFlowLesson.installmentLabel("POL-001", "-1")
+
+    assert(actual == Left("Installments must be positive"))
+  }
+
+  test("a missing policy reason wins when the installment text is also invalid") {
+    val actual = ResultFlowLesson.installmentLabel("POL-999", "hello")
+
+    // Check the externally visible first-error contract. This result alone
+    // does not instrument or prove whether an internal method was invoked.
+    assert(actual == Left("Policy not found: POL-999"))
+  }
 }

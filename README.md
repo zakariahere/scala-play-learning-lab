@@ -7,7 +7,7 @@
 
 A hands-on learning journey through Scala, sbt and eventually Play. Small insurance-policy examples connect familiar Java concepts to Scala's expressions, data modelling and optional values.
 
-**Current stage:** Scala 2 language essentials through traits, implicits, `Either` and `Try`, plus a combined result flow and its first named ScalaTest test. Play 3 and Apache Pekko are future topics, not installed dependencies. All policy data and pricing rules are fictional.
+**Current stage:** Scala 2 language essentials through traits, implicits, `Either` and `Try`, plus a combined result flow with six named ScalaTest tests. Play 3 and Apache Pekko are future topics, not installed dependencies. All policy data and pricing rules are fictional.
 
 ## Run the lab
 
@@ -32,7 +32,7 @@ sbt test
 sbt "testOnly learning.ResultFlowLessonSpec"
 ```
 
-ScalaTest 3.2.19 is test-scoped, matching the separate `sbtlearn` project. The first suite checks one successful result flow; it does not yet cover every failure branch. `sbt test` does not automatically execute assertions inside lesson `run()` methods. See the [AnyFunSuite reference](https://www.scalatest.org/scaladoc/3.2.19/org/scalatest/funsuite/AnyFunSuite.html).
+ScalaTest 3.2.19 is test-scoped, matching the separate `sbtlearn` project. The suite has six named cases: successful label, missing policy, malformed count, zero count, negative count and first-error precedence. These are examples, not exhaustive coverage. `sbt test` does not automatically execute assertions inside lesson `run()` methods. See the [AnyFunSuite reference](https://www.scalatest.org/scaladoc/3.2.19/org/scalatest/funsuite/AnyFunSuite.html).
 
 | Step | Concept | Read the code |
 | --- | --- | --- |
@@ -64,12 +64,13 @@ ScalaTest 3.2.19 is test-scoped, matching the separate `sbtlearn` project. The f
 | 26 | Try.recoverWith: a Try-returning fallback, explicit match and failed backup outcomes | [TryLesson.scala](src/main/scala/learning/TryLesson.scala) |
 | 27 | Option / Either / Try together: explicit result conversion, validation and first-error behavior | [ResultFlowLesson.scala](src/main/scala/learning/ResultFlowLesson.scala) |
 | 28 | A named ScalaTest test: arrange / act / assert, real failure output, test versus runMain | [ResultFlowLessonSpec.scala](src/test/scala/learning/ResultFlowLessonSpec.scala) |
+| 29 | Named failure-path tests: expected Left values, parsing versus validation and first-error precedence | [ResultFlowLessonSpec.scala](src/test/scala/learning/ResultFlowLessonSpec.scala) |
 
 `PremiumLesson.main` runs the learning examples in order. Each later lesson prints a labelled section; assertions check the expected results. The deliberately failing compiler examples live outside `src/` and are run separately using their linked instructions.
 
 These steps group the runnable material; they are not blog part numbers or a claim of independent mastery. See [progress.md](progress.md) for the detailed session history.
 
-**Resume here:** the first named ResultFlowLesson test is introduced and verified, including a deliberately wrong expectation followed by a passing correction. AnyFunSuite is being explained from first principles: earlier generated sbt examples are not evidence of learner understanding. Next: build on this explanation with separate named tests for failure branches. No independent mastery claimed.
+**Resume here:** six named tests are introduced and verified. An expected Left is a passing test when the workflow correctly rejects input; parsing failure, validation failure and first-error precedence have separate names. Next: contrast a returned Left with a genuinely thrown exception in a test. Explain unfamiliar testing syntax from zero; generated code is not evidence of learner mastery.
 
 A few results to look for:
 
@@ -173,7 +174,8 @@ progress.md                Covered topics and where to resume
 - [x] Option / Either / Try consolidation: lookup, parse, validate and compose
 - [ ] Deeper sbt workflows
 - [x] First named ScalaTest test and testOnly selection
-- [ ] Named failure-path tests and deeper testing workflows
+- [x] Named failure-path tests for the result flow
+- [ ] Testing thrown exceptions and deeper testing workflows
 - [ ] Futures and asynchronous error handling
 - [ ] Play routes, controllers, JSON and services
 - [ ] Apache Pekko concepts and version-specific integration
