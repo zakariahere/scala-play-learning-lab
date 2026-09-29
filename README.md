@@ -7,7 +7,7 @@
 
 A hands-on learning journey through Scala and sbt, ending with asynchronous Scala. Small insurance-policy examples connect familiar Java concepts to Scala's expressions, data modelling and optional values.
 
-**Current stage:** Scala 2 language essentials through traits, implicits, `Either` and `Try`, plus eight named ScalaTest tests covering returned results and thrown exceptions. This cursus ends after asynchronous Scala; Play 3 and Apache Pekko are outside its scope and are not installed dependencies. All policy data and pricing rules are fictional.
+**Current stage:** Scala 2 language essentials through traits, implicits, `Either` and `Try`, plus nine named ScalaTest tests covering returned results and thrown exceptions. This cursus ends after asynchronous Scala; Play 3 and Apache Pekko are outside its scope and are not installed dependencies. All policy data and pricing rules are fictional.
 
 ## Run the lab
 
@@ -33,7 +33,7 @@ sbt "testOnly learning.ResultFlowLessonSpec"
 sbt "testOnly learning.ExceptionBoundarySpec"
 ```
 
-ScalaTest 3.2.19 is test-scoped, matching the separate `sbtlearn` project. Eight named tests run across two suites: six result-flow cases plus a focused returned-`Left` versus thrown-exception comparison. `intercept[NumberFormatException] { ... }` checks that its block throws the expected type and returns the exception for inspection; no exception or a different type fails the test. These are examples, not exhaustive coverage. `sbt test` does not automatically execute assertions inside lesson `run()` methods. See the [AnyFunSuite reference](https://www.scalatest.org/scaladoc/3.2.19/org/scalatest/funsuite/AnyFunSuite.html) and [exception assertion reference](https://www.scalatest.org/scaladoc/3.2.19/org/scalatest/Assertions.html).
+ScalaTest 3.2.19 is test-scoped, matching the separate `sbtlearn` project. Nine named tests run across two suites: seven result-flow cases plus a focused returned-`Left` versus thrown-exception comparison. `intercept[NumberFormatException] { ... }` checks that its block throws the expected type and returns the exception for inspection; no exception or a different type fails the test. These are examples, not exhaustive coverage. `sbt test` does not automatically execute assertions inside lesson `run()` methods. See the [AnyFunSuite reference](https://www.scalatest.org/scaladoc/3.2.19/org/scalatest/funsuite/AnyFunSuite.html) and [exception assertion reference](https://www.scalatest.org/scaladoc/3.2.19/org/scalatest/Assertions.html).
 
 | Step | Concept | Read the code |
 | --- | --- | --- |
@@ -67,12 +67,13 @@ ScalaTest 3.2.19 is test-scoped, matching the separate `sbtlearn` project. Eight
 | 28 | A named ScalaTest test: arrange / act / assert, real failure output, test versus runMain | [ResultFlowLessonSpec.scala](src/test/scala/learning/ResultFlowLessonSpec.scala) |
 | 29 | Named failure-path tests: expected Left values, parsing versus validation and first-error precedence | [ResultFlowLessonSpec.scala](src/test/scala/learning/ResultFlowLessonSpec.scala) |
 | 30 | Returned Left versus thrown exception: intercept, type arguments and inspecting the caught exception | [ExceptionBoundarySpec.scala](src/test/scala/learning/ExceptionBoundarySpec.scala) |
+| 31 | Testing consolidation: a second valid input, independent expected result and a verified failing/passing assertion | [ResultFlowLessonSpec.scala](src/test/scala/learning/ResultFlowLessonSpec.scala) |
 
 `PremiumLesson.main` runs the learning examples in order. Each later lesson prints a labelled section; assertions check the expected results. The deliberately failing compiler examples live outside `src/` and are run separately using their linked instructions.
 
 These steps group the runnable material; they are not blog part numbers or a claim of independent mastery. See [progress.md](progress.md) for the detailed session history.
 
-**Resume here:** eight named tests are introduced and verified, including returned errors versus thrown exceptions. Next: a small testing consolidation, then practical generics and sealed domain errors before asynchronous Scala. Explain unfamiliar testing syntax from zero; generated code is not evidence of learner mastery.
+**Resume here:** testing basics consolidated through nine named tests. Six installments give 100 EUR, with an independently derived expectation; an intentional incorrect expectation was observed failing before restoration. Next: practical generic methods, comparing Java `<T>` with Scala `[A]`, before sealed domain errors and asynchronous Scala. Guided examples are not evidence of independent learner mastery.
 
 A few results to look for:
 
@@ -178,7 +179,7 @@ progress.md                Covered topics and where to resume
 - [x] First named ScalaTest test and testOnly selection
 - [x] Named failure-path tests for the result flow
 - [x] Testing thrown exceptions with intercept
-- [ ] Small testing consolidation
+- [x] Small testing consolidation with a second valid input and independent expectation
 - [ ] Practical generics, sealed traits and typed domain errors
 - [ ] Useful variance and Java interoperability
 - [ ] Futures and asynchronous error handling

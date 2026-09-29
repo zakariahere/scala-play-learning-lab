@@ -18,6 +18,19 @@ class ResultFlowLessonSpec extends AnyFunSuite {
     assert(actual == Right("POL-001: 600 EUR / 12 = 50 EUR"))
   }
 
+  test("six installments produce a 100 EUR base-premium label") {
+    // Arrange: a second successful case, with its own explicit inputs.
+    val policyNumber = "POL-001"
+    val installments = "6"
+
+    // Act: call the real workflow once.
+    val actual = ResultFlowLesson.installmentLabel(policyNumber, installments)
+
+    // Assert: derive the expectation independently: 600 / 6 = 100.
+    // This catches an implementation that always produces a 50 EUR amount.
+    assert(actual == Right("POL-001: 600 EUR / 6 = 100 EUR"))
+  }
+
   // A returned Left is an expected workflow outcome, not a failed test.
   // The test passes when the entire outcome equals the expected Left.
   test("a missing policy returns its not-found reason") {
