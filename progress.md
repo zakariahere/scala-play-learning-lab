@@ -1,6 +1,6 @@
 # Learning progress
 
-Updated: 2026-09-24
+Updated: 2026-09-29
 
 ## Covered with runnable examples
 
@@ -16,7 +16,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Introduced Try.recover beside its explicit match equivalent. Explained the typed exception pattern before using it: a NumberFormatException gets a display fallback, Success is unchanged and an unmatched ArithmeticException stays a Failure. Nine assertions verify these outcomes, match equivalence, the unchanged original failure and skipped handlers; introduced and assistant-verified only, not independent learner mastery. Next: Try.recoverWith, when the selected fallback operation already returns Try. On 2026-09-24, verified Part 12 published and saved Part 13 as draft 3a04344a-0bf7-4656-8ea5-54972cee5e42; update that draft rather than creating a duplicate. Next new article number is provisionally 14, subject to fresh verification. Keep typed error hierarchies, type classes and deeper implicit-search precedence for later.
+Introduced Try.recoverWith beside an explicit match, selecting an operation returning Try[String] for a NumberFormatException. Verified backup success, failed backup parsing/calculation, preserved success and unmatched failure, skipped handlers and one attempt only. Introduced and assistant-verified, not independent learner mastery. Next: one small Option/Either/Try consolidation example before formal testing, without introducing more combinators. On 2026-09-24, verified Part 12 published and saved Part 13 as draft 3a04344a-0bf7-4656-8ea5-54972cee5e42; status has not been rechecked. Update that existing article rather than creating a duplicate. Next new article number is provisionally 14, subject to fresh verification. Keep typed error hierarchies, type classes and deeper implicit-search precedence for later.
 
 ## Teaching approach
 
@@ -379,3 +379,16 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Local deliverables: C:/Users/Zakaria/Documents/Codex/2026-09-21/referenced-chatgpt-conversation-this-is-an/outputs/scala-play-13 (preview, payload, readback, source templates, images, prompt and draft details).
 - Target hub: Scala/Play, which adopts scala-play tags. Registry and live hub still have stale Akka wording and classes/constructors nextUp; no site edits or deployment authorized or performed.
 - No publication and no new learner mastery claim. Next lesson remains recoverWith; next new article number is provisionally 14, requiring fresh live verification. Preserved uncommitted practice code.
+
+## Session 36: Try.recoverWith - a fallback that can fail (2026-09-29)
+- Added labelWithBackupMatch and labelWithBackup, both accepting Try[String], an explicitly supplied backup text and an installment count.
+- Explicit match first: Success is kept, NumberFormatException selects installmentLabelWithFor on the backup, and other failures stay failures.
+- recoverWith uses the handler's Try[String] directly; recover's prior handler returned a plain String. No extra Success wrapper, unwrapping or guaranteed successful fallback.
+- Backup text represents an explicit alternative for the same fictional premium, not an invented charge. This is not automatic retry, persistence, network access or async work.
+- Fifteen assertions cover successful backup, backup NumberFormatException, backup ArithmeticException, match equivalence, preserved original outcomes, skipped handlers and exactly one selected fallback attempt even when that returns another NumberFormatException.
+- The match is equivalent for this helper, which captures its own exceptions; it is not a general replacement for recoverWith's callback exception handling.
+- Full sbt runMain learning.PremiumLesson passed on Scala 2.13.18, sbt 1.12.15, Java 21.0.12.1. README updated through step 26. Checked main equal to origin/main before edits; preserved the claimFreeYears = 3 practice change.
+- Status: introduced and assistant-verified only; no independent learner practice or mastery claimed.
+- Next: a small consolidation scenario choosing Option, Either and Try by what each result means, before formal tests. Do not start Future or Play in the same lesson.
+- Blog: this is a short companion to Part 13, not enough for a separate article. No article write, live status check or publication; verify the existing article before any requested addition.
+- The restored six-page desk cheatsheet covers through session 35 (recover). No PDF update was requested in this teaching turn; add recoverWith on its next revision.

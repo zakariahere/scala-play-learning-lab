@@ -101,6 +101,31 @@ object TryLesson {
     }
   }
 
+  // backupText is an explicitly supplied alternative for the same fictional
+  // premium, not an invented amount or an automatic retry of the original input.
+  def labelWithBackupMatch(
+      result: Try[String], backupText: String, installments: Int
+  ): Try[String] = {
+    result match {
+      case Success(label) => Success(label)
+      case Failure(_: NumberFormatException) =>
+        installmentLabelWithFor(backupText, installments)
+      case Failure(error) => Failure(error)
+    }
+  }
+
+  def labelWithBackup(
+      result: Try[String], backupText: String, installments: Int
+  ): Try[String] = {
+    // The handler returns Try[String], which recoverWith uses directly.
+    // This helper captures its own parse/calculation exceptions. The match above
+    // is equivalent for this helper, not for arbitrary throwing callbacks.
+    result.recoverWith {
+      case _: NumberFormatException =>
+        installmentLabelWithFor(backupText, installments)
+    }
+  }
+
   def run(): Unit = {
     println("--- Try: turn a throwing operation into a result ---")
     val valid: Try[Int] = parsePremium("600")
@@ -267,5 +292,56 @@ object TryLesson {
     }
     assert(guardedSuccess == forLabel)
     assert(guardedOtherFailure == forBadDivision)
+
+    println("--- Try.recoverWith: the fallback operation can fail too ---")
+    val backupWorked = labelWithBackup(forBadParse, "600", 12)
+    val backupBadText = labelWithBackup(forBadParse, "still invalid", 12)
+    val backupBadDivision = labelWithBackup(forBadParse, "600", 0)
+    val noBackupNeeded = labelWithBackup(forLabel, "still invalid", 0)
+    val notSelected = labelWithBackup(forBadDivision, "600", 12)
+
+    println("Backup succeeds: " + backupWorked)
+    println("Backup parsing fails: " + backupBadText)
+    println("Backup calculation fails: " + backupBadDivision)
+    println("Original success stays: " + noBackupNeeded)
+    println("Unmatched original failure stays: " + notSelected)
+
+    assert(backupWorked == Success("600 EUR / 12 = 50 EUR"))
+    assert(failureName(backupBadText) == "NumberFormatException")
+    assert(failureName(backupBadDivision) == "ArithmeticException")
+    assert(noBackupNeeded == forLabel)
+    assert(notSelected == forBadDivision)
+    assert(labelWithBackupMatch(forBadParse, "600", 12) == backupWorked)
+    assert(failureName(labelWithBackupMatch(forBadParse, "still invalid", 12)) ==
+      failureName(backupBadText))
+    assert(failureName(labelWithBackupMatch(forBadParse, "600", 0)) ==
+      failureName(backupBadDivision))
+    assert(labelWithBackupMatch(forLabel, "still invalid", 0) == forLabel)
+    assert(labelWithBackupMatch(forBadDivision, "600", 12) == forBadDivision)
+    assert(failureName(forBadParse) == "NumberFormatException")
+
+    // A selected handler's returned Failure is the final outcome of this call;
+    // recoverWith does not keep reapplying itself until something succeeds.
+    var backupAttempts = 0
+    val failedOnce = forBadParse.recoverWith {
+      case _: NumberFormatException =>
+        backupAttempts = backupAttempts + 1
+        installmentLabelWithFor("still invalid", 12)
+    }
+    assert(backupAttempts == 1)
+    assert(failureName(failedOnce) == "NumberFormatException")
+
+    val untouchedSuccess = forLabel.recoverWith {
+      case _: NumberFormatException =>
+        assert(false, "recoverWith must skip its handler on Success")
+        installmentLabelWithFor("600", 12)
+    }
+    val untouchedOtherFailure = forBadDivision.recoverWith {
+      case _: NumberFormatException =>
+        assert(false, "recoverWith must skip an unmatched exception")
+        installmentLabelWithFor("600", 12)
+    }
+    assert(untouchedSuccess == forLabel)
+    assert(untouchedOtherFailure == forBadDivision)
   }
 }
