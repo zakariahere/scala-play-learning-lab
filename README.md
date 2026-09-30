@@ -7,7 +7,7 @@
 
 A hands-on learning journey through Scala and sbt, ending with asynchronous Scala. Small insurance-policy examples connect familiar Java concepts to Scala's expressions, data modelling and optional values.
 
-**Current stage:** Scala 2 language essentials through traits, implicits, `Either`, `Try`, generics, typed domain errors, introductory variance and Java collection adapters, plus nine named ScalaTest tests covering returned results and thrown exceptions. This cursus ends after asynchronous Scala; Play 3 and Apache Pekko are outside its scope and are not installed dependencies. All policy data and pricing rules are fictional.
+**Current stage:** Scala 2 language essentials through traits, implicits, `Either`, `Try`, generics, typed domain errors, introductory variance, Java collection adapters and a first Future/ExecutionContext example, plus nine named ScalaTest tests covering returned results and thrown exceptions. This cursus ends after asynchronous Scala; Play 3 and Apache Pekko are outside its scope and are not installed dependencies. All policy data and pricing rules are fictional.
 
 ## Run the lab
 
@@ -74,12 +74,13 @@ ScalaTest 3.2.19 is test-scoped, matching the separate `sbtlearn` project. Nine 
 | 35 | Typed Either errors: explicit lookup/parsing conversion, first-error composition and display-boundary rendering | [TypedResultFlowLesson.scala](src/main/scala/learning/TypedResultFlowLesson.scala) |
 | 36 | Invariant Box versus covariant List and read-only box; real assignment/setter compiler errors | [VarianceLesson.scala](src/main/scala/learning/VarianceLesson.scala), [CovariantBox.scala](src/main/scala/learning/CovariantBox.scala), [compiler examples](examples/variance-errors/lesson.md) |
 | 37 | Java/Scala collection adapters versus snapshots, shared mutation and unsupported writes | [JavaCollectionLesson.scala](src/main/scala/learning/JavaCollectionLesson.scala) |
+| 38 | First Future: explicit ExecutionContext, worker versus caller, eager submission and a bounded console wait | [FutureBasicsLesson.scala](src/main/scala/learning/FutureBasicsLesson.scala) |
 
 `PremiumLesson.main` runs the learning examples in order. Each later lesson prints a labelled section; assertions check the expected results. The deliberately failing compiler examples live outside `src/` and are run separately using their linked instructions.
 
 These steps group the runnable material; they are not blog part numbers or a claim of independent mastery. See [progress.md](progress.md) for the detailed session history.
 
-**Resume here:** Java collection interoperability introduced with explicit conversion, `CollectionConverters._`, `asScala`/`asJava`, shared mutation and an independent `toList` snapshot. Twelve new runMain assertions pass; an immutable List adapter's rejected write is observed through Try. All nine existing named tests pass separately. Next: asynchronous Scala, beginning with Future as a result that may not be available yet and ExecutionContext as its execution machinery. Explain scheduling before composition; no framework required. Guided examples are not evidence of independent learner mastery.
+**Resume here:** first `Future[Int]` introduced with an explicitly supplied ExecutionContext adapted from an owned Java single-thread executor. Three assertions verify different worker/caller threads, result 550 and completion after the console wait. All nine existing named tests pass separately. `Await.result` is a bounded blocking demo boundary, not the composition pattern; no completion timing or print-order assumption. Next: `Future.map`, transforming the eventual result without waiting between steps. Guided examples are not evidence of independent learner mastery.
 
 A few results to look for:
 
@@ -192,6 +193,7 @@ progress.md                Covered topics and where to resume
 - [x] Typed domain errors carried by Either
 - [x] Introductory invariance/covariance, reference widening and compiler restrictions
 - [x] Practical Java collection interoperability: adapters, snapshots and mutation boundaries
+- [x] First Future and explicit ExecutionContext; submission versus a bounded console wait
 - [ ] Futures and asynchronous error handling
 - [ ] Final synchronous/asynchronous Scala consolidation
 

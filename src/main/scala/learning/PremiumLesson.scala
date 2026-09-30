@@ -60,6 +60,7 @@ object PremiumLesson {
     TypedResultFlowLesson.run()
     VarianceLesson.run()
     JavaCollectionLesson.run()
+    FutureBasicsLesson.run()
   }
 
   // Parameters have name: Type syntax; the Int after ')' is the result type.
