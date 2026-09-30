@@ -7,7 +7,7 @@
 
 A hands-on learning journey through Scala and sbt, ending with asynchronous Scala. Small insurance-policy examples connect familiar Java concepts to Scala's expressions, data modelling and optional values.
 
-**Current stage:** Scala 2 language essentials through traits, implicits, `Either`, `Try`, generics, typed domain errors, introductory variance, Java collection adapters and Future/ExecutionContext basics with non-blocking composition, failure propagation and specific display recovery, plus nine named ScalaTest tests covering returned results and thrown exceptions. This cursus ends after asynchronous Scala; Play 3 and Apache Pekko are outside its scope and are not installed dependencies. All policy data and pricing rules are fictional.
+**Current stage:** Scala 2 language essentials through traits, implicits, `Either`, `Try`, generics, typed domain errors, introductory variance, Java collection adapters and Future/ExecutionContext basics with non-blocking composition, failure propagation, specific display recovery and asynchronous backups, plus nine named ScalaTest tests covering returned results and thrown exceptions. This cursus ends after asynchronous Scala; Play 3 and Apache Pekko are outside its scope and are not installed dependencies. All policy data and pricing rules are fictional.
 
 ## Run the lab
 
@@ -80,12 +80,13 @@ ScalaTest 3.2.19 is test-scoped, matching the separate `sbtlearn` project. Nine 
 | 41 | Future for-comprehensions: explicit flatMap/map translation, implicit context and dependent creation | [FutureForLesson.scala](src/main/scala/learning/FutureForLesson.scala) |
 | 42 | Failed Futures: source failure skips callbacks; map exceptions and inner failures propagate | [FutureFailureLesson.scala](src/main/scala/learning/FutureFailureLesson.scala) |
 | 43 | Future.recover: a plain display fallback, unmatched failures and downstream success | [FutureRecoverLesson.scala](src/main/scala/learning/FutureRecoverLesson.scala) |
+| 44 | Future.recoverWith: a Future-returning backup, backup failure and skipped handlers | [FutureRecoverWithLesson.scala](src/main/scala/learning/FutureRecoverWithLesson.scala) |
 
 `PremiumLesson.main` runs the learning examples in order. Each later lesson prints a labelled section; assertions check the expected results. The deliberately failing compiler examples live outside `src/` and are run separately using their linked instructions.
 
 These steps group the runnable material; they are not blog part numbers or a claim of independent mastery. See [progress.md](progress.md) for the detailed session history.
 
-**Resume here:** Future.recover exercised with a plain String fallback for NumberFormatException. Existing success and unmatched failure retain their outcomes; the original stays failed, while a map after recovery succeeds. Five lesson assertions pass under runMain; all nine existing named tests pass separately. Next: `Future.recoverWith` for a Future-returning fallback, then blocking boundaries and final consolidation. Guided examples are not evidence of independent learner mastery.
+**Resume here:** Future.recoverWith follows a backup Future's success or failure, without nesting, retry or recursive recovery. Five outcome assertions and two deliberately skipped guards verify backup outcomes, preserved success, unmatched failure and unchanged original failure. All runMain examples and nine existing named tests pass. Next: blocking boundaries and thread-pool starvation, then final consolidation. Guided examples are not evidence of independent learner mastery.
 
 A few results to look for:
 
@@ -204,6 +205,7 @@ progress.md                Covered topics and where to resume
 - [x] Future for-comprehensions, generated map/flatMap and implicit ExecutionContext
 - [x] Future failure propagation and verified skipped dependent work
 - [x] Future.recover with a specific display fallback and unchanged original failure
+- [x] Future.recoverWith with a fallible asynchronous backup and skipped unused handlers
 - [ ] Futures and asynchronous error handling
 - [ ] Final synchronous/asynchronous Scala consolidation
 
