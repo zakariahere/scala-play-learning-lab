@@ -77,12 +77,13 @@ ScalaTest 3.2.19 is test-scoped, matching the separate `sbtlearn` project. Nine 
 | 38 | First Future: explicit ExecutionContext, worker versus caller, eager submission and a bounded console wait | [FutureBasicsLesson.scala](src/main/scala/learning/FutureBasicsLesson.scala) |
 | 39 | Future.map: a plain transformation, explicit callback context and one final console wait | [FutureMapLesson.scala](src/main/scala/learning/FutureMapLesson.scala) |
 | 40 | Future.flatMap: a Future-returning second step, nested map versus flat composition | [FutureFlatMapLesson.scala](src/main/scala/learning/FutureFlatMapLesson.scala) |
+| 41 | Future for-comprehensions: explicit flatMap/map translation, implicit context and dependent creation | [FutureForLesson.scala](src/main/scala/learning/FutureForLesson.scala) |
 
 `PremiumLesson.main` runs the learning examples in order. Each later lesson prints a labelled section; assertions check the expected results. The deliberately failing compiler examples live outside `src/` and are run separately using their linked instructions.
 
 These steps group the runnable material; they are not blog part numbers or a claim of independent mastery. See [progress.md](progress.md) for the detailed session history.
 
-**Resume here:** `Future.flatMap` introduced with `Int => Future[Int]`: map produces `Future[Future[Int]]`, flatMap produces `Future[Int]`. Five new runMain assertions verify both results are 55; all nine existing named tests pass separately. No blocking inside tasks/callbacks; console-only waits expose the nested types. Next: Future for-comprehensions and their flatMap/map translation, with execution-context supply explained. Guided examples are not evidence of independent learner mastery.
+**Resume here:** Future for-comprehension compared with explicit `flatMap`/`map` calls. `implicit val ec` supplies generated argument lists; `yield` returns a plain String inside an overall Future[String]. Four new runMain assertions pass; all nine existing named tests pass separately. Next: failed Futures and propagation through map/flatMap/for before recovery. Guided examples are not evidence of independent learner mastery.
 
 A few results to look for:
 
@@ -198,6 +199,7 @@ progress.md                Covered topics and where to resume
 - [x] First Future and explicit ExecutionContext; submission versus a bounded console wait
 - [x] Future.map with explicit transformation context and no intermediate wait
 - [x] Future.flatMap with a Future-returning next step and nested-map comparison
+- [x] Future for-comprehensions, generated map/flatMap and implicit ExecutionContext
 - [ ] Futures and asynchronous error handling
 - [ ] Final synchronous/asynchronous Scala consolidation
 

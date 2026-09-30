@@ -63,6 +63,7 @@ object PremiumLesson {
     FutureBasicsLesson.run()
     FutureMapLesson.run()
     FutureFlatMapLesson.run()
+    FutureForLesson.run()
   }
 
   // Parameters have name: Type syntax; the Int after ')' is the result type.
