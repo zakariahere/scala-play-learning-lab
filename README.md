@@ -7,7 +7,7 @@
 
 A hands-on learning journey through Scala and sbt, ending with asynchronous Scala. Small insurance-policy examples connect familiar Java concepts to Scala's expressions, data modelling and optional values.
 
-**Current stage:** Scala 2 language essentials through traits, implicits, `Either`, `Try`, generics and a typed domain-error flow, plus nine named ScalaTest tests covering returned results and thrown exceptions. This cursus ends after asynchronous Scala; Play 3 and Apache Pekko are outside its scope and are not installed dependencies. All policy data and pricing rules are fictional.
+**Current stage:** Scala 2 language essentials through traits, implicits, `Either`, `Try`, generics a typed domain-error flow and introductory variance, plus nine named ScalaTest tests covering returned results and thrown exceptions. This cursus ends after asynchronous Scala; Play 3 and Apache Pekko are outside its scope and are not installed dependencies. All policy data and pricing rules are fictional.
 
 ## Run the lab
 
@@ -72,12 +72,13 @@ ScalaTest 3.2.19 is test-scoped, matching the separate `sbtlearn` project. Nine 
 | 33 | Generic case classes: `Box[A]`, typed fields, explicit construction, companion apply, inference, equality and copy | [Box.scala](src/main/scala/learning/Box.scala), [GenericClassLesson.scala](src/main/scala/learning/GenericClassLesson.scala) |
 | 34 | Sealed trait error family, final case classes, field patterns and a real exhaustiveness warning | [PolicyInputError.scala](src/main/scala/learning/PolicyInputError.scala), [SealedErrorLesson.scala](src/main/scala/learning/SealedErrorLesson.scala) |
 | 35 | Typed Either errors: explicit lookup/parsing conversion, first-error composition and display-boundary rendering | [TypedResultFlowLesson.scala](src/main/scala/learning/TypedResultFlowLesson.scala) |
+| 36 | Invariant Box versus covariant List and read-only box; real assignment/setter compiler errors | [VarianceLesson.scala](src/main/scala/learning/VarianceLesson.scala), [CovariantBox.scala](src/main/scala/learning/CovariantBox.scala), [compiler examples](examples/variance-errors/lesson.md) |
 
 `PremiumLesson.main` runs the learning examples in order. Each later lesson prints a labelled section; assertions check the expected results. The deliberately failing compiler examples live outside `src/` and are run separately using their linked instructions.
 
 These steps group the runnable material; they are not blog part numbers or a claim of independent mastery. See [progress.md](progress.md) for the detailed session history.
 
-**Resume here:** `Either[PolicyInputError, ...]` introduced in a separate typed flow; the original String-error example is preserved. Sixteen outcome assertions and a skipped-work guard pass under `runMain`; all nine named tests pass separately. Next: invariance/covariance using `Box[A]` and `List[+A]`, with new syntax explained before complex signatures. Guided examples are not evidence of independent learner mastery.
+**Resume here:** invariance versus covariance introduced using unchanged `Box[A]`, `List[+A]` and a separate read-only `CovariantBox[+A]`. Eight new runMain assertions pass; two deliberately failing examples were verified outside src; all nine named tests pass separately. Next: practical Java interoperability, starting with Java/Scala collection adapters. Contravariance and complex bounds are deferred. Guided examples are not evidence of independent learner mastery.
 
 A few results to look for:
 
@@ -188,7 +189,8 @@ progress.md                Covered topics and where to resume
 - [x] Generic case classes with typed field access
 - [x] Sealed traits and named domain-error values
 - [x] Typed domain errors carried by Either
-- [ ] Useful variance and Java interoperability
+- [x] Introductory invariance/covariance, reference widening and compiler restrictions
+- [ ] Practical Java interoperability
 - [ ] Futures and asynchronous error handling
 - [ ] Final synchronous/asynchronous Scala consolidation
 
