@@ -7,7 +7,7 @@
 
 A hands-on learning journey through Scala and sbt, ending with asynchronous Scala. Small insurance-policy examples connect familiar Java concepts to Scala's expressions, data modelling and optional values.
 
-**Current stage:** Scala 2 language essentials through traits, implicits, `Either` and `Try`, plus nine named ScalaTest tests covering returned results and thrown exceptions. This cursus ends after asynchronous Scala; Play 3 and Apache Pekko are outside its scope and are not installed dependencies. All policy data and pricing rules are fictional.
+**Current stage:** Scala 2 language essentials through traits, implicits, `Either`, `Try` and an introduction to generic methods, plus nine named ScalaTest tests covering returned results and thrown exceptions. This cursus ends after asynchronous Scala; Play 3 and Apache Pekko are outside its scope and are not installed dependencies. All policy data and pricing rules are fictional.
 
 ## Run the lab
 
@@ -68,12 +68,13 @@ ScalaTest 3.2.19 is test-scoped, matching the separate `sbtlearn` project. Nine 
 | 29 | Named failure-path tests: expected Left values, parsing versus validation and first-error precedence | [ResultFlowLessonSpec.scala](src/test/scala/learning/ResultFlowLessonSpec.scala) |
 | 30 | Returned Left versus thrown exception: intercept, type arguments and inspecting the caught exception | [ExceptionBoundarySpec.scala](src/test/scala/learning/ExceptionBoundarySpec.scala) |
 | 31 | Testing consolidation: a second valid input, independent expected result and a verified failing/passing assertion | [ResultFlowLessonSpec.scala](src/test/scala/learning/ResultFlowLessonSpec.scala) |
+| 32 | Generic methods: Java `<T>` versus Scala `[A]`, explicit type arguments, preserved result types and inference | [GenericMethodLesson.scala](src/main/scala/learning/GenericMethodLesson.scala) |
 
 `PremiumLesson.main` runs the learning examples in order. Each later lesson prints a labelled section; assertions check the expected results. The deliberately failing compiler examples live outside `src/` and are run separately using their linked instructions.
 
 These steps group the runnable material; they are not blog part numbers or a claim of independent mastery. See [progress.md](progress.md) for the detailed session history.
 
-**Resume here:** testing basics consolidated through nine named tests. Six installments give 100 EUR, with an independently derived expectation; an intentional incorrect expectation was observed failing before restoration. Next: practical generic methods, comparing Java `<T>` with Scala `[A]`, before sealed domain errors and asynchronous Scala. Guided examples are not evidence of independent learner mastery.
+**Resume here:** generic methods introduced through `asList[A](value: A): List[A]`, explicit calls and then inference. Seven new assertions pass under `runMain`; the nine named ScalaTest tests still pass separately. Next: a small generic case class, then sealed traits and typed domain errors before asynchronous Scala. Guided examples are not evidence of independent learner mastery.
 
 A few results to look for:
 
@@ -180,7 +181,8 @@ progress.md                Covered topics and where to resume
 - [x] Named failure-path tests for the result flow
 - [x] Testing thrown exceptions with intercept
 - [x] Small testing consolidation with a second valid input and independent expectation
-- [ ] Practical generics, sealed traits and typed domain errors
+- [x] Generic methods: explicit type arguments and inference
+- [ ] Generic case classes, sealed traits and typed domain errors
 - [ ] Useful variance and Java interoperability
 - [ ] Futures and asynchronous error handling
 - [ ] Final synchronous/asynchronous Scala consolidation

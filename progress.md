@@ -1,10 +1,10 @@
 # Learning progress
 
-Updated: 2026-09-29
+Updated: 2026-09-30
 
 ## Course finish line (user decision 2026-09-29)
 
-This cursus ends after asynchronous Scala. Remaining: testing consolidation; practical generics, sealed traits and typed errors, useful variance/Java interop; Future, ExecutionContext, composition, recovery and blocking boundaries, then a final exercise. sbt stays woven into lessons. Play, persistence and Pekko are possible separate follow-on courses. Historical stack notes below do not override this decision.
+This cursus ends after asynchronous Scala. Testing basics have been consolidated. Remaining: continue practical generics, sealed traits and typed errors, useful variance/Java interop; Future, ExecutionContext, composition, recovery and blocking boundaries, then a final exercise. sbt stays woven into lessons. Play, persistence and Pekko are possible separate follow-on courses. Historical stack notes below do not override this decision.
 
 ## Covered with runnable examples
 
@@ -20,7 +20,7 @@ The examples have been compiled and run. Coverage records what has been introduc
 
 ## Resume here
 
-Testing basics consolidated with a second successful input: six installments produce a 100 EUR base-premium label. Expected value is derived independently; a deliberate 101 EUR expectation failed, then corrected to 100 EUR. All nine named tests and full runMain pass. Assistant-guided and verified, not independent learner practice or mastery. Next: practical generic methods from Java <T> to Scala [A], starting with one explicit concrete example before inference. Sealed domain errors and asynchronous Scala follow. This cursus ends after asynchronous Scala; Play, persistence and Pekko remain outside its scope. Prior AnyFunSuite code was AI-generated: do not infer understanding from files or checked progress boxes; explain unfamiliar testing syntax from first principles. Defer fixtures, mocks and matcher DSLs. On 2026-09-29, verified Part 13 published and saved Part 14 as draft 33d6cb35-fcb4-428f-98ca-aedc7bc8b7da, Testing Scala Results - Values, Errors and Exceptions. Update that draft rather than creating a duplicate. Next new article number is provisionally 15, subject to fresh verification. Keep type classes and deeper implicit-search precedence for later.
+Introduced generic methods in GenericMethodLesson: concrete String/Int helpers, Java <T> comparison, def asList[A](value: A): List[A], explicit type arguments then inference. Seven new runMain assertions and all nine named tests pass. Introduced and assistant-verified, not independent learner mastery. Next: put a type parameter on a small case class, then sealed traits and typed domain errors. Defer variance until a concrete need; asynchronous Scala remains the finish line, with Play, persistence and Pekko outside this cursus. Prior AnyFunSuite code was AI-generated: do not infer understanding from files or checked progress boxes; explain unfamiliar testing syntax from first principles. Defer fixtures, mocks and matcher DSLs. On 2026-09-29, verified Part 13 published and saved Part 14 as draft 33d6cb35-fcb4-428f-98ca-aedc7bc8b7da, Testing Scala Results - Values, Errors and Exceptions. Update that draft rather than creating a duplicate. Next new article number is provisionally 15, subject to fresh verification. Keep type classes and deeper implicit-search precedence for later.
 
 ## Teaching approach
 
@@ -468,3 +468,15 @@ Blog milestone (2026-09-19): Part 4 confirmed published. Part 5, From flatMap to
 - Target existing Scala/Play hub through scala-play adoption tag after publication; no registry edit required for membership. Hub blurb still mentions Akka and nextUp still says classes/constructors. Extra tag-adopted Cake Pattern post also offsets the hub's displayed ordinal from authored part titles. No site edit or deployment performed.
 - Local artifacts: C:/Users/Zakaria/Documents/Codex/2026-09-21/referenced-chatgpt-conversation-this-is-an/outputs/scala-play-14 (article, preview, payload/readback, visuals, prompt and verification).
 - Both practice edits preserved. No new lesson or independent mastery claim; resume at generic methods. Course ends after asynchronous Scala. PDF unchanged. Next new article number provisionally 15, requiring fresh live verification.
+
+## Session 42: generic methods - Java <T>, Scala [A] (2026-09-30)
+
+- Added GenericMethodLesson, invoked by PremiumLesson. Started with stringAsList and intAsList, then removed type-only duplication with asList[A](value: A): List[A].
+- Compared Java static <T> List<T> asList(T value) using Collections.singletonList with the Scala method. A is a declared type-parameter name, not Any or a runtime value; the same A relates input and result element type.
+- Explicit asList[String]("POL-001") and asList[Int](12) first; then calls without type arguments. Separate List[String]/List[Int] assignments compile-check the inferred result types.
+- Reused PolicySnapshot as a third explicit type without an additional overload. No cast, dynamic type selection, implicit parameter or type class involved.
+- Seven new assertions verify expected values, agreement with concrete helpers, inferred/explicit agreement and the domain-type example. Full sbt runMain learning.PremiumLesson passed; all nine existing ScalaTest tests also passed. The new assertions run under runMain, not automatically under sbt test.
+- Verified main equal to origin/main before edits. Preserved and excluded claimFreeYears = 3 and the user's test whitespace edit. Updated README through step 32 and both progress checkpoints.
+- Introduced and assistant-verified only; no independent learner exercise or demonstrated mastery claimed.
+- Next: a simple generic case class, reusing case-class knowledge, before sealed traits/typed domain errors. Keep variance and bounds out of this opening lesson; finish the cursus after asynchronous Scala.
+- No blog or PDF update. One opening generics example is not enough for another article; accumulate coherent material. Part 14's last verified state is draft on 2026-09-29, not rechecked today; update that article rather than duplicating. Next new article provisionally Part 15 after fresh verification.

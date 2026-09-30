@@ -54,6 +54,7 @@ object PremiumLesson {
     EitherLesson.run()
     TryLesson.run()
     ResultFlowLesson.run()
+    GenericMethodLesson.run()
   }
 
   // Parameters have name: Type syntax; the Int after ')' is the result type.
