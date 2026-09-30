@@ -7,7 +7,7 @@
 
 A hands-on learning journey through Scala and sbt, ending with asynchronous Scala. Small insurance-policy examples connect familiar Java concepts to Scala's expressions, data modelling and optional values.
 
-**Current stage:** Scala 2 language essentials through traits, implicits, `Either`, `Try`, generics, typed domain errors, introductory variance, Java collection adapters and Future/ExecutionContext basics with non-blocking map/flatMap composition, plus nine named ScalaTest tests covering returned results and thrown exceptions. This cursus ends after asynchronous Scala; Play 3 and Apache Pekko are outside its scope and are not installed dependencies. All policy data and pricing rules are fictional.
+**Current stage:** Scala 2 language essentials through traits, implicits, `Either`, `Try`, generics, typed domain errors, introductory variance, Java collection adapters and Future/ExecutionContext basics with non-blocking composition and failure propagation, plus nine named ScalaTest tests covering returned results and thrown exceptions. This cursus ends after asynchronous Scala; Play 3 and Apache Pekko are outside its scope and are not installed dependencies. All policy data and pricing rules are fictional.
 
 ## Run the lab
 
@@ -78,12 +78,13 @@ ScalaTest 3.2.19 is test-scoped, matching the separate `sbtlearn` project. Nine 
 | 39 | Future.map: a plain transformation, explicit callback context and one final console wait | [FutureMapLesson.scala](src/main/scala/learning/FutureMapLesson.scala) |
 | 40 | Future.flatMap: a Future-returning second step, nested map versus flat composition | [FutureFlatMapLesson.scala](src/main/scala/learning/FutureFlatMapLesson.scala) |
 | 41 | Future for-comprehensions: explicit flatMap/map translation, implicit context and dependent creation | [FutureForLesson.scala](src/main/scala/learning/FutureForLesson.scala) |
+| 42 | Failed Futures: source failure skips callbacks; map exceptions and inner failures propagate | [FutureFailureLesson.scala](src/main/scala/learning/FutureFailureLesson.scala) |
 
 `PremiumLesson.main` runs the learning examples in order. Each later lesson prints a labelled section; assertions check the expected results. The deliberately failing compiler examples live outside `src/` and are run separately using their linked instructions.
 
 These steps group the runnable material; they are not blog part numbers or a claim of independent mastery. See [progress.md](progress.md) for the detailed session history.
 
-**Resume here:** Future for-comprehension compared with explicit `flatMap`/`map` calls. `implicit val ec` supplies generated argument lists; `yield` returns a plain String inside an overall Future[String]. Four new runMain assertions pass; all nine existing named tests pass separately. Next: failed Futures and propagation through map/flatMap/for before recovery. Guided examples are not evidence of independent learner mastery.
+**Resume here:** real Future failures exercised: failed source skips map and dependent for work; a throwing mapper and a failed inner Future fail their derived results. Six outcome assertions plus three deliberately skipped guards pass under runMain; all nine existing named tests pass separately. Console Try/Await observes failure, not recovery. Next: `Future.recover` with a specific fallback, then `recoverWith`. Guided examples are not evidence of independent learner mastery.
 
 A few results to look for:
 
@@ -200,6 +201,7 @@ progress.md                Covered topics and where to resume
 - [x] Future.map with explicit transformation context and no intermediate wait
 - [x] Future.flatMap with a Future-returning next step and nested-map comparison
 - [x] Future for-comprehensions, generated map/flatMap and implicit ExecutionContext
+- [x] Future failure propagation and verified skipped dependent work
 - [ ] Futures and asynchronous error handling
 - [ ] Final synchronous/asynchronous Scala consolidation
 
