@@ -68,6 +68,7 @@ object PremiumLesson {
     FutureRecoverLesson.run()
     FutureRecoverWithLesson.run()
     FutureBlockingLesson.run()
+    ScalaConsolidationLesson.run()
   }
 
   // Parameters have name: Type syntax; the Int after ')' is the result type.

@@ -7,7 +7,7 @@
 
 A hands-on learning journey through Scala and sbt, ending with asynchronous Scala. Small insurance-policy examples connect familiar Java concepts to Scala's expressions, data modelling and optional values.
 
-**Current stage:** Scala 2 language essentials through traits, implicits, `Either`, `Try`, generics, typed domain errors, introductory variance, Java collection adapters and Future/ExecutionContext basics with non-blocking composition, failure propagation, specific display recovery, asynchronous backups and blocking boundaries, plus nine named ScalaTest tests covering returned results and thrown exceptions. This cursus ends after asynchronous Scala; Play 3 and Apache Pekko are outside its scope and are not installed dependencies. All policy data and pricing rules are fictional.
+**Current stage:** the agreed Scala 2 cursus is complete through asynchronous Scala and final synchronous/asynchronous consolidation (2026-10-03). Runnable examples cover language essentials, traits/implicits, Option/Either/Try, generics, typed errors, introductory variance/Java interop, Future composition/recovery and blocking boundaries. Nine named ScalaTest tests cover returned results and thrown exceptions. Completion means introduced and verified course material, not independently assessed mastery. Play 3 and Apache Pekko remain outside this cursus and are not installed dependencies. All policy data and pricing rules are fictional.
 
 ## Run the lab
 
@@ -82,12 +82,13 @@ ScalaTest 3.2.19 is test-scoped, matching the separate `sbtlearn` project. Nine 
 | 43 | Future.recover: a plain display fallback, unmatched failures and downstream success | [FutureRecoverLesson.scala](src/main/scala/learning/FutureRecoverLesson.scala) |
 | 44 | Future.recoverWith: a Future-returning backup, backup failure and skipped handlers | [FutureRecoverWithLesson.scala](src/main/scala/learning/FutureRecoverWithLesson.scala) |
 | 45 | Blocking boundaries: one-worker starvation, bounded timeout, no cancellation and flatMap comparison | [FutureBlockingLesson.scala](src/main/scala/learning/FutureBlockingLesson.scala) |
+| 46 | Final consolidation: shared sync/async business flow, Future[Either], domain errors versus technical failure | [ScalaConsolidationLesson.scala](src/main/scala/learning/ScalaConsolidationLesson.scala) |
 
 `PremiumLesson.main` runs the learning examples in order. Each later lesson prints a labelled section; assertions check the expected results. The deliberately failing compiler examples live outside `src/` and are run separately using their linked instructions.
 
 These steps group the runnable material; they are not blog part numbers or a claim of independent mastery. See [progress.md](progress.md) for the detailed session history.
 
-**Resume here:** a worker waiting for a queued dependency on its own one-worker pool times out; the dependency succeeds after the worker is released. Non-blocking flatMap succeeds on that same pool. Four lesson assertions and nine named tests pass. The blocking hint is not a non-blocking adapter. Next: final synchronous/asynchronous consolidation to finish the Scala cursus. Guided examples are not evidence of independent learner mastery.
+**Course checkpoint:** final consolidation complete. Six input scenarios produce the expected typed Either results in both sync and async versions. Technical failure/recovery, preserved business Left and display mapping bring the final lesson to 16 executed assertions plus one skipped guard. All runMain examples and nine existing named tests pass. No required lessons remain; independent practice and any Play/Pekko course are optional next steps.
 
 A few results to look for:
 
@@ -189,7 +190,7 @@ progress.md                Covered topics and where to resume
 - [x] Try.recover: choose a fallback for a specific exception
 - [x] Try.recoverWith: select a fallback operation that already returns Try
 - [x] Option / Either / Try consolidation: lookup, parse, validate and compose
-- [ ] Deeper sbt workflows
+- [ ] Deeper sbt workflows (optional follow-on, not a cursus completion requirement)
 - [x] First named ScalaTest test and testOnly selection
 - [x] Named failure-path tests for the result flow
 - [x] Testing thrown exceptions with intercept
@@ -209,7 +210,7 @@ progress.md                Covered topics and where to resume
 - [x] Future.recoverWith with a fallible asynchronous backup and skipped unused handlers
 - [x] Futures and asynchronous error handling
 - [x] Blocking boundaries and bounded demonstration of thread-pool starvation
-- [ ] Final synchronous/asynchronous Scala consolidation
+- [x] Final synchronous/asynchronous Scala consolidation
 
 The course targets Scala 2.13.18 and ends after asynchronous Scala. Play 3, persistence/integrations and Apache Pekko are possible separate follow-on courses, not requirements for finishing this cursus. Checked items mean introduced with runnable examples, not independently mastered.
 
