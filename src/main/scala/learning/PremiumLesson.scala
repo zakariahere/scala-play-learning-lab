@@ -67,6 +67,7 @@ object PremiumLesson {
     FutureFailureLesson.run()
     FutureRecoverLesson.run()
     FutureRecoverWithLesson.run()
+    FutureBlockingLesson.run()
   }
 
   // Parameters have name: Type syntax; the Int after ')' is the result type.
