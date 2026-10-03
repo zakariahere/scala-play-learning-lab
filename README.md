@@ -1,4 +1,4 @@
-# Scala / Play Learning Lab
+# Scala 2.13.18 Learning Lab
 
 **From Java and Spring to idiomatic Scala 2, one runnable lesson at a time.**
 
